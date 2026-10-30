@@ -1,0 +1,136 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+
+const base = import.meta.env.BASE_URL;
+const hasBackend = Boolean(site.formspree);
+
+const steps = [
+  { n: '1', t: '预约', d: '留下称呼、身份、你现在真正在做的业务。一人公司也算。' },
+  { n: '2', t: '诊断', d: '60–90 分钟 1V1。看清你卡在个人技能、工作流，还是组织机制。' },
+  { n: '3', t: '路径', d: '你拿走一份转型画像，和可走的下一步：一条 FDE，或者先别做。' },
+];
+---
+
+<Base title="预约" description="带一条真实业务来，60–90 分钟 1V1 诊断，结束时拿走转型画像和下一步路径。">
+  <section class="section" style="padding-top: clamp(48px,6vw,72px)">
+    <div class="wrap">
+      <p class="eyebrow">Book</p>
+      <h1 style="margin: 14px 0 16px; font-size: clamp(30px,4.4vw,50px)">带着你的业务及困惑，<br />预约一次诊断。</h1>
+      <p class="lede">不一定是所有业务都值得上 AI。如果判断是不该做，我会当场说。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="grid-3" style="margin-bottom: 44px">
+        {steps.map((s) => (
+          <article class="card">
+            <span class="tag">{s.n}</span>
+            <h4 style="margin-top: 10px">{s.t}</h4>
+            <p>{s.d}</p>
+          </article>
+        ))}
+      </div>
+
+      <div class="grid-2" style="align-items: start">
+        <form
+          class="form"
+          id="book-form"
+          action={hasBackend ? site.formspree : `mailto:${site.email}`}
+          method="POST"
+          data-email={site.email}
+        >
+          <div class="field">
+            <label for="name">称呼</label>
+            <input id="name" name="name" required maxlength="40" placeholder="怎么称呼你" />
+          </div>
+          <div class="field">
+            <label for="role">身份</label>
+            <select id="role" name="role" required>
+              <option value="">请选择</option>
+              <option>一人公司 / 自由职业</option>
+              <option>创作者 / 自媒体</option>
+              <option>中小企业（10–100 人）</option>
+              <option>大型企业</option>
+              <option>其他</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="business">你正在做的业务</label>
+            <input id="business" name="business" required maxlength="60" placeholder="一句话：卖什么 / 服务谁" />
+          </div>
+          <div class="field">
+            <label for="layer">你觉得卡在哪</label>
+            <select id="layer" name="layer" required>
+              <option value="">不确定也可以</option>
+              <option>个人技能：人会做，但不会判断</option>
+              <option>工作流：每次都要重新拼一次</option>
+              <option>组织机制：只有一个人会用</option>
+              <option>不确定，需要你帮我判断</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="detail">具体卡点</label>
+            <textarea id="detail" name="detail" rows="4" maxlength="400" placeholder="越具体越好：现在怎么做、卡在哪一步、最想省掉哪件重复的事"></textarea>
+          </div>
+          <div class="field">
+            <label for="contact">联系方式（微信或邮箱）</label>
+            <input id="contact" name="contact" required maxlength="60" placeholder="微信号 / 邮箱" />
+          </div>
+          <button class="btn btn-solid" type="submit" style="justify-content:center">
+            {hasBackend ? '提交预约' : '用邮件发送'}
+          </button>
+          <p class="hint">
+            {hasBackend
+              ? '提交后我会在 1 个工作日内回复。'
+              : '本站未接表单服务：点击后会打开你的邮件客户端，数据不经过任何服务器。也可以直接加微信。'}
+          </p>
+        </form>
+
+        <div>
+          <div class="card">
+            <h4>更快的方式</h4>
+            <p style="margin-top: 8px">微信：<span style="color: var(--ink); font-weight: 700">{site.wechat}</span></p>
+            <p>邮箱：<a href={`mailto:${site.email}`} style="color: var(--accent)">{site.email}</a></p>
+            {site.wechatQr && <img src={base + site.wechatQr.replace(/^\//, '')} alt="微信二维码" width="150" style="margin-top: 14px; border: 1px solid var(--rule); border-radius: 0" />}
+          </div>
+          <div class="callout" style="margin-top: 16px">
+            <strong style="color: var(--ink)">不适合请止步。</strong>你还没有自己的业务，就先别谈 AI 落地。先去把一个东西卖出去，再回来。
+          </div>
+          <div class="card" style="margin-top: 16px">
+            <h4>费用</h4>
+            <p style="margin-top: 6px">{site.price}。诊断结束即结束，不绑定后续服务。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {!hasBackend && (
+    <script is:inline>
+      const form = document.getElementById('book-form');
+      if (form) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          const data = new FormData(form);
+          const get = function (k) {
+            return String(data.get(k) || '').trim();
+          };
+          const to = form.dataset.email || '';
+          const body = [
+            '称呼：' + get('name'),
+            '身份：' + get('role'),
+            '业务：' + get('business'),
+            '卡点层级：' + get('layer'),
+            '具体卡点：' + (get('detail') || '（未填）'),
+            '联系方式：' + get('contact'),
+          ].join('\n');
+          const subject = '诊断预约｜' + get('name') + '｜' + get('business');
+          window.location.href =
+            'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        });
+      }
+    </script>
+  )}
+</Base>

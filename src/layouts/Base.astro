@@ -1,0 +1,81 @@
+---
+import '../styles/global.css';
+import { site } from '../data/site';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = site.lead } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: site.name,
+  description,
+  url: canonical,
+  areaServed: site.city,
+  founder: { '@type': 'Person', name: site.name },
+};
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} · {site.name}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={`${title} · ${site.name}`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta name="theme-color" content="#f7f4ee" />
+    <link rel="icon" href={base + 'favicon.svg'} type="image/svg+xml" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <header class="nav">
+      <div class="nav-inner">
+        <a class="brand" href={base}><i>{site.initial}</i>{site.name}</a>
+        <nav class="nav-links">
+          <a href={base + 'method/'}>方法</a>
+          <a href={base + 'services/'}>服务</a>
+          <a href={base + 'demo/'}>演示</a>
+          <a href={base + 'about/'}>关于</a>
+          <a href={base + 'book/'}>预约</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <div class="wrap">
+        <div class="footer-grid">
+          <div>
+            <strong style="color: var(--ink)">{site.name}</strong>
+            <p style="margin-top: 4px">{site.role} · {site.city}</p>
+          </div>
+          <div>
+            <p>微信：{site.wechat}</p>
+            <p>邮箱：<a href={`mailto:${site.email}`}>{site.email}</a></p>
+          </div>
+          <div>
+            <p><a href={base + 'privacy/'}>隐私与数据说明</a></p>
+            <p><a href={base + 'book/'}>预约一次诊断</a></p>
+          </div>
+        </div>
+        <p style="margin-top: 24px; font-size: 11.5px">
+          © {new Date().getFullYear()} {site.name}. 内容与案例均为本人交付，未使用图库素材。
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

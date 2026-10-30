@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import { site } from '../data/site';
+
+const base = import.meta.env.BASE_URL;
+
+const flow = [
+  { n: '01', t: '输入', d: '一条真实的客户消息或工单，来自你现在的业务。' },
+  { n: '02', t: '判断', d: '拆成三段：确认的事实、AI 的推断、还需要核实的信息。' },
+  { n: '03', t: '人工门禁', d: '任何写回系统的动作，必须由人点确认。AI 只给建议。' },
+  { n: '04', t: '读回', d: '确认后在测试环境里看到结果，再决定是否接真实系统。' },
+];
+---
+
+<Base title="演示" description="一条业务工作流如何被做成：输入、判断、人工门禁、结果读回。">
+  <section class="section" style="padding-top: clamp(48px,6vw,72px)">
+    <div class="wrap">
+      <p class="eyebrow">Demo</p>
+      <h1 style="margin: 14px 0 16px; font-size: clamp(30px,4.4vw,50px)">先看一条业务流，<br />如何被做成。</h1>
+      <p class="lede">这里会放一条可点的业务流程：不需要 API Key，不需要注册，固定样例，打开就能走一遍。</p>
+      <div class="callout" style="margin-top: 26px">
+        <strong style="color: var(--ink)">当前状态：制作中。</strong>我不会先放一个假的上传框和一句「AI 正在生成」来充数。等它真的能点、数据边界也都标清楚了，这个页面才会换成交互版本。
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <SectionHead idx="01" title="将来这里会有四步" sub="不管你点哪个行业，都会看到同一套骨架。" />
+      <div class="grid-3">
+        {flow.map((f) => (
+          <article class="card">
+            <p class="eyebrow">{f.n}</p>
+            <h4 style="margin: 8px 0 6px">{f.t}</h4>
+            <p>{f.d}</p>
+          </article>
+        ))}
+        <article class="card" style="background: var(--tint)">
+          <h4>演示会明确标注</h4>
+          <p>· 当前是固定模拟还是实时调用<br />· 哪些数据会离开浏览器<br />· 哪些结论不能当成真实结果</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <SectionHead idx="02" title="在演示做出来之前，先看一条真实案例" sub="过程和交付物可以当面拆给你看。" />
+      <div class="btn-row" style="margin-top: 0">
+        <a class="btn btn-solid" href={base + 'book/'}>带着你的业务来</a>
+        <a class="btn" href={`mailto:${site.email}`}>直接发邮件</a>
+      </div>
+    </div>
+  </section>
+</Base>

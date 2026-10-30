@@ -1,0 +1,86 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import { site } from '../data/site';
+
+const base = import.meta.env.BASE_URL;
+
+const timeline = [
+  { year: '【年份】', t: '【行业 / 公司类型】', d: '【角色 + 做过什么 + 留下什么】' },
+  { year: '【年份】', t: '【行业 / 公司类型】', d: '【角色 + 做过什么 + 留下什么】' },
+  { year: '【年份】', t: '【行业 / 公司类型】', d: '【角色 + 做过什么 + 留下什么】' },
+];
+---
+
+<Base title="关于" description="一个人做诊断与落地，按项目组队；固定的是责任，弹性的是能力。">
+  <section class="section" style="padding-top: clamp(48px,6vw,72px)">
+    <div class="wrap">
+      <p class="eyebrow">About</p>
+      <h1 style="margin: 14px 0 16px; font-size: clamp(30px,4.4vw,50px)">主理人在场。</h1>
+      <p class="lede">我是一个人，但不是一个孤岛。判断、方案和验收永远由我做；其余能力按项目组队。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="grid-2">
+        <div class="card" style="background: var(--tint)">
+          <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap">
+            {site.avatar ? <img src={base + site.avatar.replace(/^\//, '')} alt={`${site.name} 的照片`} width="88" height="88" style="width:88px;height:88px;border-radius:0;object-fit:cover" /> : <div style="width:88px;height:88px;border-radius:0;background:rgba(var(--accent-rgb),.1);display:grid;place-items:center;color:var(--accent);font-weight:700;font-size:12px;letter-spacing:.12em">照片</div>}
+            <div>
+              <h3>{site.name}</h3>
+              <p class="muted">{site.role} · {site.city}</p>
+            </div>
+          </div>
+          <p style="margin-top: 16px">【一句话：你原来在什么行业、做过几年、最擅长判断什么】</p>
+          <div class="tag-row">
+            <span class="tag">实名</span>
+            <span class="tag ghost">【年限】年行业经验</span>
+            <span class="tag ghost">【代表项目，脱敏】</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h4>固定的是责任，弹性的是能力</h4>
+          <p style="margin-top: 8px">固定：{site.team.fixed.join('、')}——这三件事永远由我本人做。</p>
+          <p style="margin-top: 6px">弹性：{site.team.flex.map((f) => f.name).join('、')}——从长期合作的名单里按项目请，项目结束即解散。</p>
+          <div class="callout" style="margin-top: 16px; font-size: 14px">{site.team.promise}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <SectionHead idx="02" title="做过什么" sub="写过程和判断，不写形容词。" />
+      <div class="grid-3">
+        {timeline.map((t) => (
+          <article class="card">
+            <p class="eyebrow">{t.year}</p>
+            <h4 style="margin: 8px 0 6px">{t.t}</h4>
+            <p>{t.d}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <SectionHead idx="03" title="这几种说法我不使用" sub="因为它们没法被验证。" />
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>不写</th><th>因为</th></tr></thead>
+          <tbody>
+            <tr><td>「服务世界 500 强」</td><td>无法核对，读了等于没读</td></tr>
+            <tr><td>「效率提升 300%」</td><td>没有客户授权和统计口径，数字就是编的</td></tr>
+            <tr><td>「10 人专家团队」</td><td>团队按项目组队，写人数会过期</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn-solid" href={base + 'book/'}>预约一次诊断</a>
+      </div>
+    </div>
+  </section>
+</Base>

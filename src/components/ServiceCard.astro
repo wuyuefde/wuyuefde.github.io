@@ -1,0 +1,27 @@
+---
+import { site } from '../data/site';
+
+interface Props {
+  service: (typeof site.services)[number];
+  compact?: boolean;
+}
+
+const { service, compact = false } = Astro.props;
+---
+
+<article class="card">
+  <span class="tag">{service.en}</span>
+  <h3 style="margin-top: 12px">{service.name}</h3>
+  <p class="muted">{service.who}</p>
+  <dl class="spec-grid">
+    <dt>交付</dt>
+    <dd>{service.delivery}</dd>
+    <dt>周期</dt>
+    <dd>{service.duration}</dd>
+    <dt>成功</dt>
+    <dd>{service.success}</dd>
+    <dt>离开</dt>
+    <dd>{service.leave}</dd>
+  </dl>
+  {!compact && <div class="tag-row"><span class="tag ghost">按项目计价</span><span class="tag ghost">不排他</span></div>}
+</article>

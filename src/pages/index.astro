@@ -1,0 +1,195 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import { site } from '../data/site';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<Base title="主页" description={site.lead}>
+  <!-- 01 首屏 -->
+  <section class="hero">
+    <div class="hero-deco"></div>
+    <div class="wrap hero-inner">
+      <p class="eyebrow">{site.role} · {site.city} · 一人主理，按项目组队</p>
+      <h1>
+        {site.headline.map((line, i) => <span class="line">{line}{i < site.headline.length - 1 && <br />}</span>)}
+      </h1>
+      <p class="lede">{site.lead}</p>
+      <div class="btn-row">
+        <a class="btn btn-solid" href={base + 'book/'}>预约一次诊断</a>
+        <a class="btn" href={base + 'demo/'}>先看一条工作流</a>
+      </div>
+      <p class="hint" style="margin-top: 16px">{site.price} · 诊断结束即结束，不绑定后续服务</p>
+    </div>
+  </section>
+
+  <!-- 02 证据 -->
+  <section class="section">
+    <div class="wrap">
+      <SectionHead
+        idx="01"
+        title="先看一条被做成的业务流"
+        sub="不是案例集，是一条完整的过程：之前卡在哪、我做了什么、最后留下什么。数字等我拿到授权再填，不编。"
+      />
+      <div class="grid-3">
+        <article class="card">
+          <span class="tag">之前</span>
+          <h4 style="margin-top: 10px">【行业 + 团队规模】</h4>
+          <p>【原来的做法：谁在做什么、卡在哪一步、重复劳动有多少】</p>
+        </article>
+        <article class="card">
+          <span class="tag">现场</span>
+          <h4 style="margin-top: 10px">我做了什么</h4>
+          <p>【一条流程怎么被拆开、哪一步交给 AI、哪一步必须人确认、交付物是什么】</p>
+        </article>
+        <article class="card">
+          <span class="tag">留下</span>
+          <h4 style="margin-top: 10px">他们现在能自己跑</h4>
+          <p>【谁接住了、怎么验证、如果我不在会不会断】</p>
+        </article>
+      </div>
+      <div class="callout" style="margin-top: 18px">
+        这条案例的制作过程与交付物，我可以当面拆给你看。<span class="key">但不会写成「效率提升 300%」——没有授权和口径的数字，我不写。</span>
+      </div>
+      <div class="btn-row">
+        <a class="btn" href={base + 'demo/'}>看可交互演示（制作中）</a>
+        <a class="btn" href={base + 'book/'}>带着你的业务来</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 交付方式 -->
+  <section class="section">
+    <div class="wrap">
+      <SectionHead
+        idx="02"
+        title="我怎么交付"
+        sub="只有两个动作：先把事情看清楚，再把一条流程做成。每个都写死了边界和离场时间。"
+      />
+      <div class="grid-2">
+        {site.services.map((s) => <ServiceCard service={s} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 不做什么 + 弹性团队 -->
+  <section class="section">
+    <div class="wrap">
+      <SectionHead
+        idx="03"
+        title="我不做什么"
+        sub="先说清楚边界，省掉后面两次会议。"
+      />
+      <div class="grid-3">
+        {site.noList.map((n) => (
+          <article class="card">
+            <h4>{n.title}</h4>
+            <p>{n.text}</p>
+          </article>
+        ))}
+      </div>
+
+      <div style="margin-top: 40px">
+        <h3>关于「团队」：固定的是责任，弹性的是能力</h3>
+        <p style="margin-top: 8px; max-width: 680px">
+          我一个人做诊断和落地。需要时，从长期合作的名单里按项目组队，项目结束即解散。
+        </p>
+        <div class="table-wrap" style="margin-top: 18px">
+          <table>
+            <thead>
+              <tr><th>固定的部分（永远是我）</th><th>弹性的部分（按项目请）</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  {site.team.fixed.map((f) => <div>· {f}</div>)}
+                </td>
+                <td>
+                  {site.team.flex.map((f) => <div>· {f.name} <span class="muted">— {f.note}</span></div>)}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout" style="margin-top: 16px">{site.team.promise}</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 价格 -->
+  <section class="section">
+    <div class="wrap">
+      <SectionHead
+        idx="04"
+        title="价格与合作方式"
+        sub="先给数字，再谈方案。价格透明能省掉一半沟通。"
+      />
+      <div class="grid-2">
+        <article class="card">
+          <h4>业务诊断</h4>
+          <p style="font-size: 22px; color: var(--ink); font-weight: 700; margin: 10px 0 6px">{site.price}</p>
+          <p>60–90 分钟，带真实业务来。结束时你拿到转型画像和下一步路径；不满意当场说，不用付费续单。</p>
+        </article>
+        <article class="card">
+          <h4>一条工作流的 FDE</h4>
+          <p style="font-size: 22px; color: var(--ink); font-weight: 700; margin: 10px 0 6px">按条报价</p>
+          <p>诊断后确定范围再报价。按项目计价，不按月驻场；关键协作角色都有备份人选。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 联系 -->
+  <section class="section">
+    <div class="wrap">
+      <SectionHead
+        idx="05"
+        title="带着你的业务和困惑来"
+        sub="不一定是所有业务都值得上 AI。如果判断是不该做，我也会直说。"
+      />
+      <div class="btn-row" style="margin-top: 0">
+        <a class="btn btn-solid" href={base + 'book/'}>预约一次诊断</a>
+        <a class="btn" href={`mailto:${site.email}`}>直接发邮件</a>
+      </div>
+      <p class="hint" style="margin-top: 16px">微信：{site.wechat} · 邮箱：{site.email}</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(60px, 8.5vw, 108px) 0 clamp(52px, 6.5vw, 84px);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .hero-deco {
+    display: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+  }
+
+  .hero .eyebrow {
+    display: block;
+    width: fit-content;
+    padding-top: 11px;
+    border-top: 2px solid var(--ink);
+    letter-spacing: 0.14em;
+  }
+
+  .hero h1 {
+    margin: 26px 0 22px;
+    max-width: 16em;
+  }
+
+  .line {
+    display: inline;
+  }
+</style>

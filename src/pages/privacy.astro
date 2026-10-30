@@ -1,0 +1,37 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+
+<Base title="隐私与数据说明" description="本站如何处理你的数据，以及演示里哪些数据会离开浏览器。">
+  <section class="section" style="padding-top: clamp(48px,6vw,72px)">
+    <div class="wrap">
+      <p class="eyebrow">Privacy</p>
+      <h1 style="margin: 14px 0 16px; font-size: clamp(28px,4vw,44px)">隐私与数据说明</h1>
+      <p class="lede">只写我实际会做的事，不写模板条款。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="grid-2">
+        <div class="card">
+          <h4>站内统计</h4>
+          <p style="margin-top: 8px">本站不使用第三方统计脚本，不写入 cookie，不做用户画像。你打开页面这件事，我这边看不到。</p>
+        </div>
+        <div class="card">
+          <h4>预约表单</h4>
+          <p style="margin-top: 8px">你填的内容只用于这次诊断沟通。若未配置表单服务，点击提交会在你的电脑上直接打开邮件客户端，数据不经过任何服务器。</p>
+        </div>
+        <div class="card">
+          <h4>演示与上传</h4>
+          <p style="margin-top: 8px">演示页不使用真实客户数据。任何需要上传文件或 API Key 的演示，都会在页面上标明：数据是否离开浏览器、是否被保存、什么时候删除。</p>
+        </div>
+        <div class="card">
+          <h4>删除与导出</h4>
+          <p style="margin-top: 8px">发邮件到 <a href={`mailto:${site.email}`} style="color: var(--accent)">{site.email}</a>，我可以删除与这次沟通相关的全部记录，并回复确认。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

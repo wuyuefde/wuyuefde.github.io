@@ -1,0 +1,86 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import { site } from '../data/site';
+
+const base = import.meta.env.BASE_URL;
+
+const principles = [
+  { n: '01', t: '先分层，再动手', d: '个人技能、工作流、组织机制是三种不同的病。混在一起，就会买错东西。' },
+  { n: '02', t: '先一条，再一张网', d: '不铺摊子。先把一条真实业务跑通，方法可迁移了，再扩展。' },
+  { n: '03', t: '做成等于能教', d: '不会教给身边人的交付，只是临时外包。教会了，我才能离开。' },
+  { n: '04', t: '本体先于智能体', d: '企业可以有很多 Agent。没有自己的业务本体，它们只是一堆不会对话的工具。' },
+];
+
+const steps = [
+  { n: '1', t: '进场', d: '只带一条真实业务' },
+  { n: '2', t: '做成', d: '工作流跑通' },
+  { n: '3', t: '教会', d: '你的人接得住' },
+  { n: '4', t: '离开', d: '方法留在你体内' },
+];
+---
+
+<Base title="方法" description="三层诊断框架、四条原则，以及进场到离开的四步流程。">
+  <section class="section" style="padding-top: clamp(48px,6vw,72px)">
+    <div class="wrap">
+      <p class="eyebrow">Method</p>
+      <h1 style="margin: 14px 0 16px; font-size: clamp(30px,4.4vw,50px)">先看清卡在哪一层。</h1>
+      <p class="lede">同一句「我们想用 AI」，背后可能是三种完全不同的病。诊断错层，钱就花在错的地方。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <SectionHead idx="01" title="三层诊断" sub="个人技能、工作流、组织机制。从上往下，越往下越贵也越难。" />
+      <div class="grid-3">
+        {site.layers.map((l) => (
+          <article class="card">
+            <p class="eyebrow">{l.n}</p>
+            <h3 style="margin: 8px 0 6px">{l.name}</h3>
+            <p style="color: var(--ink)">{l.q}</p>
+            <p class="muted" style="margin-top: 8px">典型症状：{l.symptom}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <SectionHead idx="02" title="四条原则" sub="全部为了同一件事：我离开之后，你还能自己跑。" />
+      <div class="grid-2">
+        {principles.map((p) => (
+          <article class="card">
+            <p class="eyebrow">{p.n}</p>
+            <h3 style="margin: 8px 0 6px">{p.t}</h3>
+            <p>{p.d}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <SectionHead idx="03" title="四步流程" sub="进场 → 做成 → 教会 → 离开。四步走完，这个项目就结束了。" />
+      <div class="grid-3">
+        {steps.map((s) => (
+          <article class="card">
+            <span class="tag">{s.n}</span>
+            <h4 style="margin-top: 10px">{s.t}</h4>
+            <p>{s.d}</p>
+          </article>
+        ))}
+        <article class="card" style="background: var(--tint)">
+          <h4>衡量</h4>
+          <p>个人侧：能自己设计一条工作流、能独立交付、能判断什么不该用 AI。</p>
+          <p style="margin-top: 8px">组织侧：方法离开项目组、有人能带下一场、有一条业务指标被改写。</p>
+        </article>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn-solid" href={base + 'book/'}>预约一次诊断</a>
+        <a class="btn" href={base + 'services/'}>看服务边界</a>
+      </div>
+    </div>
+  </section>
+</Base>
