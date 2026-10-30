@@ -1,56 +1,435 @@
 ---
 import Base from '../layouts/Base.astro';
 import SectionHead from '../components/SectionHead.astro';
-import { site } from '../data/site';
 
 const base = import.meta.env.BASE_URL;
 
-const flow = [
-  { n: '01', t: '输入', d: '一条真实的客户消息或工单，来自你现在的业务。' },
-  { n: '02', t: '判断', d: '拆成三段：确认的事实、AI 的推断、还需要核实的信息。' },
-  { n: '03', t: '人工门禁', d: '任何写回系统的动作，必须由人点确认。AI 只给建议。' },
-  { n: '04', t: '读回', d: '确认后在测试环境里看到结果，再决定是否接真实系统。' },
+const cases = [
+  {
+    id: 'wholesale-quote',
+    idx: '01',
+    industry: '批发零售 · 知识资产化',
+    nav: '从 2–5 天报价，到当天生成候选清单',
+    title: '酒店用品批发｜从 2–5 天报价，到当天生成候选清单',
+    setting: '仿真企业设定：酒店用品批发商，1.6 万 SKU、40+ 厂家，报价依赖 3 名资深业务员。',
+    surface: '“能不能让 AI 直接报价？”',
+    diagnosis: '仿真基线中，一次报价需要 2–5 天，约 60% 时间花在找货与配齐，而非定价。图册版本、替代关系和适配规则没有形成统一、可维护的组织知识。',
+    scope: '先选 2 个高频品类，只做“询价 → 候选清单草稿”。输出候选型号、替代方案、配套辅材、缺失问题与出处，业务员确认后再进入定价。',
+    aka: [
+      { name: 'K · Knowledge', text: '建立 SKU 主表与版本、替代关系、适配与配套规则、历史项目及图册索引；每条知识保留来源与生效日期。' },
+      { name: 'A · Agent', text: '理解文字、照片与铭牌，检索候选商品，生成清单草稿，并一次性提出缺失信息。' },
+      { name: 'A · Automation', text: '询价自动建档、草稿生成、超时提醒；成交结果经确认后回写历史项目库。' },
+    ],
+    human: '业务员确认型号、替代与安装条件；报价员决定价格、账期和运费；最终报价由人终审并发送。',
+    flow: ['客户发来文字、照片或铭牌', 'AI 解析需求并检索企业知识', '生成候选、替代、配套与出处', '业务员修改并确认清单', '报价员定价，终审后发出'],
+    sample: [
+      { label: '仿真输入', text: '客户发来现场照片与一句“按这个规格配一批，月底要”。' },
+      { label: '清单草稿', text: '候选型号＋可替代方案＋配套辅材；每项附图册页码或历史项目依据。' },
+      { label: '缺失问题', text: '一次性列出尺寸、数量、安装条件、到货时间等必须确认的信息。' },
+      { label: '人工动作', text: '业务员修改候选清单，报价员确定价格与账期，人工终审后对外发送。' },
+    ],
+    deliver: ['2 个高频品类的 SKU 主表、替代与配套知识模板', '候选清单工作流、历史项目回测集与人工确认节点', '规则新增、版本修订和知识维护 SOP'],
+    goals: ['询价到首版清单目标 ≤4 小时', '50 个历史项目回测，候选与实际成交重合度目标 ≥70%', '漏配率目标 ≤5%，每项候选均可追溯出处'],
+    exclude: ['不自动生成最终成交价，不自动发送给客户', '首期不覆盖全量 1.6 万 SKU', '不承诺丢单率或成交额变化'],
+    fit: 'SKU 多、询价非标、报价依赖少数熟手，且愿意投入历史订单与业务专家时间的企业。',
+  },
+  {
+    id: 'manufacturing-inquiry',
+    idx: '02',
+    industry: '制造业 · 模糊输入结构化',
+    nav: '从一句“上次那种”，到可确认的规格草稿',
+    title: '紧固件制造｜从一句“上次那种”，到可确认的规格草稿',
+    setting: '仿真企业设定：紧固件厂，8000+ 规格，ERP 下单需填 7 个参数，客户常用品名、照片或“上次那种”询价。',
+    surface: '“让 AI 识别客户原话，直接生成订单。”',
+    diagnosis: '同一商品有二十多种叫法，“上次”“长一点”需要历史订单和替代知识才能消歧。真正的风险不是识别不出，而是识别错误仍流入报价或生产。',
+    scope: '先服务有历史订单的高频复购客户，完成“原话 → 候选规格 → 缺参追问 → 人工确认 → 订单草稿”，暂不接全新定制件。',
+    aka: [
+      { name: 'K · Knowledge', text: '沉淀客户级叫法映射、通用同义词表、历史订单与替代关系；替代规则必须带适用条件和禁区。' },
+      { name: 'A · Agent', text: '抽取文字和图片中的规格线索，结合历史订单给出候选，并将缺失参数一次性问清。' },
+      { name: 'A · Automation', text: '自动检索客户历史、预填订单草稿；确认后的“叫法—规格”关系经审核回填。' },
+    ],
+    human: '业务员确认规格与替代方案；报价、订单和生产指令必须经人确认。手写件、新客户和定制件保持全量复核。',
+    flow: ['接收客户原话或照片', '锚定该客户历史订单', '生成候选规格与缺失问题', '客户和业务员共同确认', '形成订单草稿并回填映射'],
+    sample: [
+      { label: '仿真输入', text: '“像上次那种 M8 不锈钢的，长一点，2000 个，月底要。”' },
+      { label: '历史锚定', text: '从该客户近 12 个月订单找到 M8×30、M8×40、M8×50 三个候选。' },
+      { label: '缺失问题', text: '“长一点”相对哪个规格？材质等级、头型和实际到货日期分别是什么？' },
+      { label: '人工动作', text: '客户确认、业务员复核后才生成订单草稿；AI 不直接下生产单。' },
+    ],
+    deliver: ['高频客户的叫法映射、同义词表与替代关系库', '模糊询价解析、缺参追问、人工确认与订单草稿流程', '历史询价盲测集、复核规则和映射回填机制'],
+    goals: ['新询价盲测中，规格映射与资深业务员判断一致率目标 ≥90%', '替代推荐零禁区违规，低置信结果强制标红', '报价、订单与生产指令保持 100% 人工确认'],
+    exclude: ['不让 AI 猜测模糊指代并直接下单', '首期不覆盖全新客户和纯定制件', '不承诺手写照片识别零错误'],
+    fit: '标准件规格多、同物异名严重、复购询价频繁，并保留历史订单与原始询价记录的企业。',
+  },
+  {
+    id: 'ecommerce-action',
+    idx: '03',
+    industry: '电商 · 跨系统动作闭环',
+    nav: '不是再做一块 BI 大屏，而是让告警直接触发动作',
+    title: '多平台电商｜让缺货告警直接触发动作，而不止是上大屏幕',
+    setting: '仿真企业设定：四平台休闲食品自营，400 SKU、日均 8000 单，平台、ERP、仓库与投放数据分散。',
+    surface: '“给我上一块 BI 大屏，一眼看到哪个链接在亏钱。”',
+    diagnosis: '仿真基线中，运营每天约 3 小时对账，下午才看到昨天的问题。库存、在途、预售与投放没有联动，看见结果时已经错过当天的动作窗口。',
+    scope: '先打通库存—在途—预售对账，输出差异清单；再把缺货告警接到投放建议，以“人工确认＋一键执行”形成动作闭环。',
+    aka: [
+      { name: 'K · Knowledge', text: '统一可售、锁定、在途、预售等数据口径，维护 SKU、商品链接、仓库与投放计划的映射及阈值。' },
+      { name: 'A · Agent', text: '处理异常语义、退货原因归类与动作建议；库存计算、阈值和预算规则交给确定性程序。' },
+      { name: 'A · Automation', text: '按平台 API 限流同步必要字段，生成异常卡片并推送责任人；人工确认后执行并记录结果。' },
+    ],
+    human: '运营只处理异常项；投放调整先由人确认，涉及预算、赔付和承诺时效的动作始终保留人工审批与熔断。',
+    flow: ['同步平台订单与 ERP 库存', '按统一口径完成对账', '生成缺货与差异异常卡片', '给出投放调整建议和依据', '人工一键执行，结果回写'],
+    sample: [
+      { label: '异常卡片', text: '某 SKU 可售库存低于安全阈值，显示库存口径、在途数量与数据更新时间。' },
+      { label: '影响范围', text: '列出关联商品链接、投放计划和责任人，不再只展示一个缺货数字。' },
+      { label: '动作建议', text: '建议降预算或暂停投放，并附上触发规则；补货后可进入恢复检查。' },
+      { label: '人工动作', text: '运营确认后一键执行，系统保留审批人、执行时间与结果，便于追溯。' },
+    ],
+    deliver: ['数据口径字典、字段清单与 SKU／链接／投放映射', '库存对账、差异清单、缺货告警与动作卡片', '人工审批、执行回写、异常复盘和持续成本说明'],
+    goals: ['对账人工耗时目标从 3 小时／天降至 ≤0.5 小时／天', '异常可定位到 SKU、链接、责任人与判断依据', '按同口径、同周期复盘缺货率与缺货链接投放金额'],
+    exclude: ['不承诺所有平台数据实时，受 API 与接口字段约束', '不直接全自动停投或改预算，保留审批与熔断', '不把 GMV、利润或平台罚款变化单独归因于 AI'],
+    fit: '多平台、多仓库经营，库存与投放相互影响，且能明确数据接口、口径负责人和动作责任人的企业。',
+  },
+];
+
+const otherScenarios = [
+  {
+    industry: '制造业',
+    title: '工艺专家经验萃取',
+    problem: '作业指导书覆盖不了现场判断，关键经验集中在少数专家身上。',
+    delivery: '决策规则库、历史批次回测集、AI 首答与专家终审流程。',
+  },
+  {
+    industry: '制造业',
+    title: 'ERP／MES／财务三系统对账',
+    problem: '单位与口径不一，人工跨表核对，差异发现晚且处置不留痕。',
+    delivery: '口径表、确定性对账规则、AI 长尾匹配、差异清单与 T+1 日报。',
+  },
+  {
+    industry: '制造业',
+    title: '老系统订单链经营预警',
+    problem: '订单、生产、采购与付款数据都在，但经营链路断、异常靠人追问。',
+    delivery: '只读数据同步、订单链视图、断点标红、分级告警与处置回执。',
+  },
+  {
+    industry: '制造业',
+    title: '包装与标签提交前预检',
+    problem: '审核排队，低级错误后置到终审，返工和报废成本高。',
+    delivery: '规则预检、营养成分计算校验、渠道驳回样本库与人工终审清单。',
+  },
+  {
+    industry: '电商',
+    title: '内容素材资产化与审批提效',
+    problem: '素材散落、爆款经验依赖个人，生成提速了但审批和复用没有改善。',
+    delivery: '品牌与合规知识库、爆款结构模板、审稿流、素材标签与资产库。',
+  },
+  {
+    industry: '电商',
+    title: '搜索词与 ASIN 匹配建议',
+    problem: '搜索词数量远超人工判断带宽，卖点、词与商品之间缺少结构化映射。',
+    delivery: '卖点标签库、规则＋AI 匹配评分、否词建议与人工执行记录；ACOS 仅作观察指标。',
+  },
+  {
+    industry: '批发零售',
+    title: '厂家费用核销材料预检',
+    problem: '照片、明细与厂家政策不一致，材料反复补件，核销驳回原因难复盘。',
+    delivery: '材料抽取、政策比对、补件清单与出处；验收聚焦一次通过率、补件响应和审核耗时。',
+  },
 ];
 ---
 
-<Base title="演示" description="一条业务工作流如何被做成：输入、判断、人工门禁、结果读回。">
+<Base title="行业仿真方案" description="制造、电商、批发零售三个重点 AI 落地仿真案例，展示业务诊断、AKA 方案、输入输出样例、人机分工、验收目标与项目边界。">
   <section class="section page-head" style="padding-top: clamp(48px,6vw,72px)">
     <div class="wrap">
-      <p class="eyebrow">Demo</p>
-      <h1 style="margin: 14px 0 16px; font-size: clamp(30px,4.4vw,50px)">先看一条业务流，<br />如何被做成。</h1>
-      <p class="lede">这里会放一条可点的业务流程：不需要 API Key，不需要注册，固定样例，打开就能走一遍。</p>
+      <p class="eyebrow">Industry Playbooks</p>
+      <h1 style="margin: 14px 0 16px; font-size: clamp(30px,4.4vw,50px)">不只看 AI 能做什么，<br />更看一条业务流怎样被交付。</h1>
+      <p class="lede">三个重点场景，完整展示从表面诉求到第一期切口、AKA 方案、人工门禁与验收方式。其余七个场景作为后续诊断入口。</p>
       <div class="callout" style="margin-top: 26px">
-        <strong style="color: var(--ink)">当前状态：制作中。</strong>我不会先放一个假的上传框和一句「AI 正在生成」来充数。等它真的能点、数据边界也都标清楚了，这个页面才会换成交互版本。
+        <strong style="color: var(--ink)">行业仿真方案：</strong>以下内容根据典型业务问题进行教学改编，不对应真实客户。页面数字是<strong>仿真基线或待校准的验收目标</strong>，不是实际交付成果，也不作为行业基准。
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" aria-label="三个重点案例导航">
     <div class="wrap">
-      <SectionHead idx="01" title="将来这里会有四步" sub="不管你点哪个行业，都会看到同一套骨架。" />
       <div class="grid-3">
-        {flow.map((f) => (
+        {cases.map((c) => (
+          <a class="card case-nav" href={`#${c.id}`}>
+            <span class="tag ghost">{c.industry}</span>
+            <h3>{c.nav}</h3>
+            <p>查看业务情境、工作流、交付物与验收边界</p>
+            <span class="text-link">进入案例 →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {cases.map((c) => (
+    <section class="section case-section" id={c.id}>
+      <div class="wrap">
+        <SectionHead idx={c.idx} title={c.title} sub={c.setting} />
+
+        <div class="grid-2">
           <article class="card">
-            <p class="eyebrow">{f.n}</p>
-            <h4 style="margin: 8px 0 6px">{f.t}</h4>
-            <p>{f.d}</p>
+            <span class="tag ghost">表面诉求</span>
+            <h3 style="margin-top: 12px">{c.surface}</h3>
+            <p>{c.diagnosis}</p>
+          </article>
+          <article class="card" style="background: var(--tint)">
+            <span class="tag">第一期切口</span>
+            <p style="margin-top: 12px; color: var(--ink); font-size: 15px">{c.scope}</p>
+          </article>
+        </div>
+
+        <h3 class="block-title">AKA 方案与人工门禁</h3>
+        <div class="grid-3">
+          {c.aka.map((a) => (
+            <article class="card">
+              <h4>{a.name}</h4>
+              <p>{a.text}</p>
+            </article>
+          ))}
+        </div>
+        <div class="callout human"><strong>Human in the Loop：</strong>{c.human}</div>
+
+        <ol class="flow" aria-label={`${c.industry}工作流程`}>
+          {c.flow.map((step, i) => (
+            <li>
+              <span>{String(i + 1).padStart(2, '0')}</span>
+              <p>{step}</p>
+            </li>
+          ))}
+        </ol>
+
+        <h3 class="block-title">交付物长什么样</h3>
+        <div class="table-wrap sample-table">
+          <table>
+            <tbody>
+              {c.sample.map((row) => (
+                <tr><td>{row.label}</td><td>{row.text}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="block-title">验收目标与项目边界</h3>
+        <p class="hint" style="margin: -6px 0 16px">“做到什么”是仿真方案的验收目标，真实项目须在基线测量后由双方确认。</p>
+        <div class="grid-3 acceptance">
+          <article class="card">
+            <h4>做哪些</h4>
+            <ul class="check-list">{c.deliver.map((item) => <li>{item}</li>)}</ul>
+          </article>
+          <article class="card">
+            <h4>做到什么</h4>
+            <ul class="check-list">{c.goals.map((item) => <li>{item}</li>)}</ul>
+          </article>
+          <article class="card">
+            <h4>不做哪些</h4>
+            <ul class="check-list">{c.exclude.map((item) => <li>{item}</li>)}</ul>
+          </article>
+        </div>
+
+        <div class="case-fit">
+          <p><strong style="color: var(--ink)">适用条件：</strong>{c.fit}</p>
+          <a class="text-link" href={base + 'book/'}>我的流程与此相似，预约初筛 →</a>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section class="section case-section" id="more-scenarios">
+    <div class="wrap">
+      <SectionHead
+        idx="04"
+        title="另外七个可诊断场景"
+        sub="先展示问题类型与参考交付物，不把每个场景都包装成标准套餐。是否值得做，仍要看真实业务量、数据基础和组织条件。"
+      />
+      <div class="grid-2">
+        {otherScenarios.map((s) => (
+          <article class="card other-card">
+            <span class="tag ghost">{s.industry}</span>
+            <h3>{s.title}</h3>
+            <p>{s.problem}</p>
+            <dl class="spec-grid">
+              <dt>交付参考</dt>
+              <dd>{s.delivery}</dd>
+            </dl>
           </article>
         ))}
-        <article class="card" style="background: var(--tint)">
-          <h4>演示会明确标注</h4>
-          <p>· 当前是固定模拟还是实时调用<br />· 哪些数据会离开浏览器<br />· 哪些结论不能当成真实结果</p>
-        </article>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section case-section">
     <div class="wrap">
-      <SectionHead idx="02" title="在演示做出来之前，先看一条真实案例" sub="过程和交付物可以当面拆给你看。" />
+      <SectionHead
+        idx="05"
+        title="场景可以相似，方案不能照搬"
+        sub="真正进入项目时，先测业务基线，再确定第一期范围、知识来源、系统边界和人工责任。能复用的是诊断与交付方法，不是虚构的效果数字。"
+      />
       <div class="btn-row" style="margin-top: 0">
-        <a class="btn btn-solid" href={base + 'book/'}>带着你的业务来</a>
-        <a class="btn" href={`mailto:${site.email}`}>直接发邮件</a>
+        <a class="btn btn-solid" href={base + 'book/'}>带一条真实流程来初筛</a>
+        <a class="btn" href={base + 'method/'}>查看完整交付方法</a>
       </div>
+      <p class="hint" style="margin-top: 16px">初筛不需要提交敏感数据；具体样例与系统材料在确认合作及保密边界后提供。</p>
     </div>
   </section>
 </Base>
+
+<style>
+  .case-nav {
+    display: block;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .case-nav:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 0 rgba(67, 48, 28, 0.12);
+  }
+
+  .case-nav h3 {
+    margin: 14px 0 8px;
+  }
+
+  .case-nav .text-link {
+    display: inline-block;
+    margin-top: 16px;
+  }
+
+  .case-section {
+    border-top: 2px solid var(--rule);
+    scroll-margin-top: 72px;
+  }
+
+  .block-title {
+    margin: 34px 0 16px;
+  }
+
+  .human {
+    margin-top: 16px;
+  }
+
+  .flow {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin: 30px 0 8px;
+  }
+
+  .flow li {
+    border-top: 2px solid var(--ink);
+    padding: 12px 8px 0 0;
+  }
+
+  .flow li > span {
+    color: var(--hot);
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .flow p {
+    margin-top: 6px;
+    color: var(--ink);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .sample-table table {
+    min-width: 620px;
+  }
+
+  .sample-table td:first-child {
+    width: 118px;
+    color: var(--ink);
+    background: var(--panel-2);
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .check-list {
+    list-style: none;
+    margin-top: 10px;
+  }
+
+  .check-list li {
+    position: relative;
+    padding-left: 15px;
+    margin-top: 9px;
+    font-size: 13.5px;
+    line-height: 1.7;
+  }
+
+  .check-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border: 1px solid var(--ink);
+    border-radius: 1px;
+  }
+
+  .case-fit {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1.5px dashed var(--rule);
+  }
+
+  .case-fit p {
+    max-width: 700px;
+    font-size: 13.5px;
+  }
+
+  .text-link {
+    color: var(--hot);
+    font-size: 13px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .text-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .other-card h3 {
+    margin: 12px 0 8px;
+  }
+
+  @media (max-width: 860px) {
+    .flow {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .flow li {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 8px;
+      border-top: none;
+      border-left: 2px solid var(--ink);
+      padding: 0 0 18px 14px;
+    }
+
+    .flow p {
+      margin-top: 0;
+    }
+
+    .case-fit {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .case-fit .text-link {
+      white-space: normal;
+    }
+  }
+</style>

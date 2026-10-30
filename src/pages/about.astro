@@ -6,18 +6,18 @@ import { site } from '../data/site';
 const base = import.meta.env.BASE_URL;
 
 const timeline = [
-  { year: '【年份】', t: '【行业 / 公司类型】', d: '【角色 + 做过什么 + 留下什么】' },
-  { year: '【年份】', t: '【行业 / 公司类型】', d: '【角色 + 做过什么 + 留下什么】' },
-  { year: '【年份】', t: '【行业 / 公司类型】', d: '【角色 + 做过什么 + 留下什么】' },
+  { year: '早期职业阶段', t: '风控建模与数据分析', d: '在金融服务业务中做过风控建模与数据分析，习惯从指标、样本和业务规则出发，而不是从工具功能出发。' },
+  { year: '随后', t: '贷后运营与策略体系', d: '做过 M1 运营策略和贷后策略体系，理解策略、人员、供应方与监控指标如何共同影响一条业务链路。' },
+  { year: '近一年', t: 'AI 外呼与智能路由', d: '牵头 AI 催收大模型项目落地，并设计外呼线路动态路由机制，把模型能力放回真实业务流程中验证。' },
 ];
 ---
 
-<Base title="关于" description="一个人做诊断与落地，按项目组队；固定的是责任，弹性的是能力。">
+<Base title="关于主理人" description="7 年金融业务与策略经验，做过 AI 外呼项目落地；负责业务诊断、方案设计、交付与验收。">
   <section class="section page-head" style="padding-top: clamp(48px,6vw,72px)">
     <div class="wrap">
       <p class="eyebrow">About</p>
-      <h1 style="margin: 14px 0 16px; font-size: clamp(30px,4.4vw,50px)">主理人在场。</h1>
-      <p class="lede">我是一个人，但不是一个孤岛。判断、方案和验收永远由我做；其余能力按项目组队。</p>
+      <h1 style="margin: 14px 0 16px; font-size: clamp(30px,4.4vw,50px)">做过业务策略，<br />也下场做 AI 落地。</h1>
+      <p class="lede">我更关心一项 AI 投入能不能进入日常流程、能不能被团队使用、能不能通过业务验收，而不是演示时看起来有多先进。</p>
     </div>
   </section>
 
@@ -32,18 +32,18 @@ const timeline = [
               <p class="muted">{site.role} · {site.city}</p>
             </div>
           </div>
-          <p style="margin-top: 16px">【一句话：你原来在什么行业、做过几年、最擅长判断什么】</p>
+          <p style="margin-top: 16px">7 年金融业务与策略经验。做过风控、数据分析、贷后运营与 AI 外呼项目，现在把这些经验用于企业 AI 诊断、培训和 FDE 交付。</p>
           <div class="tag-row">
-            <span class="tag">实名</span>
-            <span class="tag ghost">【年限】年行业经验</span>
-            <span class="tag ghost">【代表项目，脱敏】</span>
+            <span class="tag">业务出身</span>
+            <span class="tag ghost">AI 项目落地</span>
+            <span class="tag ghost">验收与风险导向</span>
           </div>
         </div>
 
         <div class="card">
-          <h4>固定的是责任，弹性的是能力</h4>
-          <p style="margin-top: 8px">固定：{site.team.fixed.join('、')}——这三件事永远由我本人做。</p>
-          <p style="margin-top: 6px">弹性：{site.team.flex.map((f) => f.name).join('、')}——从长期合作的名单里按项目请，项目结束即解散。</p>
+          <h4>一个负责人，对完整交付负责</h4>
+          <p style="margin-top: 8px">固定：{site.team.fixed.join('、')}——这些核心环节始终由我负责。</p>
+          <p style="margin-top: 6px">协作：{site.team.flex.map((f) => f.name).join('、')}——按项目引入，角色、费用与交付范围提前说明。</p>
           <div class="callout" style="margin-top: 16px; font-size: 14px">{site.team.promise}</div>
         </div>
       </div>
@@ -52,7 +52,7 @@ const timeline = [
 
   <section class="section">
     <div class="wrap">
-      <SectionHead idx="02" title="做过什么" sub="写过程和判断，不写形容词。" />
+      <SectionHead idx="02" title="经历如何变成交付能力" sub="不列无法核对的头衔，只呈现与这次合作直接相关的业务经验。" />
       <div class="grid-3">
         {timeline.map((t) => (
           <article class="card">
@@ -67,19 +67,19 @@ const timeline = [
 
   <section class="section">
     <div class="wrap">
-      <SectionHead idx="03" title="这几种说法我不使用" sub="因为它们没法被验证。" />
+      <SectionHead idx="03" title="这些经历，对客户有什么用" sub="技术会更新，业务拆解、风险意识和验收方法可以复用。" />
       <div class="table-wrap">
         <table>
-          <thead><tr><th>不写</th><th>因为</th></tr></thead>
+          <thead><tr><th>我带来的能力</th><th>在项目里的具体作用</th></tr></thead>
           <tbody>
-            <tr><td>「服务世界 500 强」</td><td>无法核对，读了等于没读</td></tr>
-            <tr><td>「效率提升 300%」</td><td>没有客户授权和统计口径，数字就是编的</td></tr>
-            <tr><td>「10 人专家团队」</td><td>团队按项目组队，写人数会过期</td></tr>
+            <tr><td>业务拆解</td><td>把“想用 AI 提效”拆成岗位、任务、流程、规则和可衡量指标</td></tr>
+            <tr><td>风险意识</td><td>提前设计权限、人工审核、异常处理与失败降级，不让演示直接替代生产验证</td></tr>
+            <tr><td>验收思维</td><td>先测基线、再定问题集和验收口径，避免项目结束时双方对“做成了”理解不同</td></tr>
           </tbody>
         </table>
       </div>
       <div class="btn-row">
-        <a class="btn btn-solid" href={base + 'book/'}>预约一次诊断</a>
+        <a class="btn btn-solid" href={base + 'book/'}>聊聊你的业务场景</a>
       </div>
     </div>
   </section>

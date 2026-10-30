@@ -7,7 +7,7 @@ import { site } from '../data/site';
 const base = import.meta.env.BASE_URL;
 ---
 
-<Base title="主页" description={site.lead}>
+<Base title="企业 AI 落地" description={site.lead}>
   <!-- 01 首屏 -->
   <section class="hero">
     <div class="hero-deco" aria-hidden="true">
@@ -22,22 +22,22 @@ const base = import.meta.env.BASE_URL;
           <rect x="92" y="150" width="76" height="26" rx="8" fill="#F0940A" />
           <polygon points="96,176 164,176 176,224 84,224" fill="#F7EDCB" />
           <path d="M172,102 C204,98 208,138 174,144" fill="none" stroke-width="10" />
-          <path d="M88,100 L66,116 L88,124" fill="#F2E2AE" stroke-width="6" />
+          <path d="M88,100 L66,116 L88,124" fill="none" stroke-width="6" />
           <ellipse cx="112" cy="116" rx="12" ry="22" fill="#FBF3D8" stroke="none" opacity=".8" />
         </g>
       </svg>
     </div>
     <div class="wrap hero-inner">
-      <p class="eyebrow">{site.role} · {site.city} · 一人主理，按项目组队</p>
+      <p class="eyebrow">{site.role} · {site.city}</p>
       <h1>
         {site.headline.map((line, i) => <span class="line">{line}{i < site.headline.length - 1 && <br />}</span>)}
       </h1>
       <p class="lede">{site.lead}</p>
       <div class="btn-row">
-        <a class="btn btn-solid" href={base + 'book/'}>预约一次诊断</a>
-        <a class="btn" href={base + 'demo/'}>先看一条工作流</a>
+        <a class="btn btn-solid" href={base + 'book/'}>预约需求初筛</a>
+        <a class="btn" href={base + 'demo/'}>查看行业方案</a>
       </div>
-      <p class="hint" style="margin-top: 16px">{site.price} · 诊断结束即结束，不绑定后续服务</p>
+      <p class="hint" style="margin-top: 16px">{site.price} · 不合适会继续，也会直接说明</p>
     </div>
   </section>
 
@@ -46,43 +46,78 @@ const base = import.meta.env.BASE_URL;
     <div class="wrap">
       <SectionHead
         idx="01"
-        title="先看一条被做成的业务流"
-        sub="不是案例集，是一条完整的过程：之前卡在哪、我做了什么、最后留下什么。数字等我拿到授权再填，不编。"
+        title="一条 AI 外呼项目，如何拆成可落地的业务流"
+        sub="来自我过往金融 AI 项目的脱敏经历。不展示机构名称与经营数据，重点看业务判断与交付过程。"
       />
       <div class="grid-3">
         <article class="card">
           <span class="tag">之前</span>
-          <h4 style="margin-top: 10px">【行业 + 团队规模】</h4>
-          <p>【原来的做法：谁在做什么、卡在哪一步、重复劳动有多少】</p>
+          <h4 style="margin-top: 10px">业务缺的不是一个机器人</h4>
+          <p>AI 外呼不是接上模型就结束。案件状态、话术边界、线路选择、人工介入和效果监控，必须放在同一条业务链路里。</p>
         </article>
         <article class="card">
           <span class="tag">现场</span>
-          <h4 style="margin-top: 10px">我做了什么</h4>
-          <p>【一条流程怎么被拆开、哪一步交给 AI、哪一步必须人确认、交付物是什么】</p>
+          <h4 style="margin-top: 10px">先写清策略与人机分工</h4>
+          <p>参与 AI 催收大模型落地，围绕外呼策略、线路动态路由与监控指标拆解流程；标准化环节交给 AI，异常与关键判断保留给人。</p>
         </article>
         <article class="card">
-          <span class="tag">留下</span>
-          <h4 style="margin-top: 10px">他们现在能自己跑</h4>
-          <p>【谁接住了、怎么验证、如果我不在会不会断】</p>
+          <span class="tag">沉淀</span>
+          <h4 style="margin-top: 10px">形成可迁移的落地方法</h4>
+          <p>从业务目标、供应方能力、流程测试到验收口径，先让每一步可观察、可复核，再讨论扩大自动化范围。</p>
         </article>
       </div>
       <div class="callout" style="margin-top: 18px">
-        这条案例的制作过程与交付物，我可以当面拆给你看。<span class="key">但不会写成「效率提升 300%」——没有授权和口径的数字，我不写。</span>
+        这套方法也能用于客服、销售跟进和运营处理：<span class="key">不是复制某个行业的话术，而是复制“业务拆解—小范围验证—人工门禁—指标验收”的过程。</span>
       </div>
       <div class="btn-row">
-        <a class="btn" href={base + 'demo/'}>看可交互演示（制作中）</a>
-        <a class="btn" href={base + 'book/'}>带着你的业务来</a>
+        <a class="btn" href={base + 'demo/'}>看三个行业仿真方案</a>
+        <a class="btn" href={base + 'book/'}>聊聊你的业务流程</a>
       </div>
     </div>
   </section>
 
-  <!-- 03 交付方式 -->
+  <!-- 03 行业仿真方案 -->
   <section class="section">
     <div class="wrap">
       <SectionHead
         idx="02"
-        title="我怎么交付"
-        sub="只有两个动作：先把事情看清楚，再把一条流程做成。每个都写死了边界和离场时间。"
+        title="三个行业场景，看方案怎样落到业务里"
+        sub="不是罗列 AI 功能，而是把表面诉求、第一期切口、交付物、人工门禁与验收边界讲清楚。以下均为行业仿真方案，不代表真实客户成果。"
+      />
+      <div class="grid-3">
+        <article class="card">
+          <span class="tag ghost">批发零售 · 知识资产化</span>
+          <h3 style="margin: 12px 0 8px">从 2–5 天报价，到当天生成候选清单</h3>
+          <p>把找货、替代、配套与出处做成工作流，最终价格与对外发送仍由人确认。</p>
+          <p style="margin-top: 14px"><a class="case-link" href={base + 'demo/#wholesale-quote'}>查看酒店用品批发方案 →</a></p>
+        </article>
+        <article class="card">
+          <span class="tag ghost">制造业 · 模糊输入结构化</span>
+          <h3 style="margin: 12px 0 8px">从一句“上次那种”，到可确认的规格草稿</h3>
+          <p>用历史订单锚定模糊指代，一次性补齐参数，不让 AI 猜测后直接下单。</p>
+          <p style="margin-top: 14px"><a class="case-link" href={base + 'demo/#manufacturing-inquiry'}>查看紧固件询价方案 →</a></p>
+        </article>
+        <article class="card">
+          <span class="tag ghost">电商 · 跨系统动作闭环</span>
+          <h3 style="margin: 12px 0 8px">让缺货告警直接触发动作，而不止是上大屏幕</h3>
+          <p>打通库存对账、异常卡片与投放建议，人工确认后执行并保留追溯记录。</p>
+          <p style="margin-top: 14px"><a class="case-link" href={base + 'demo/#ecommerce-action'}>查看多平台电商方案 →</a></p>
+        </article>
+      </div>
+      <div class="callout" style="margin-top: 18px">
+        另有工艺经验萃取、三系统对账、包装预检、内容资产化等 <span class="key">7 个可诊断场景</span>，按业务问题与参考交付物简要展示。
+        <a class="case-link" href={base + 'demo/#more-scenarios'}>查看完整场景清单 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 交付方式 -->
+  <section class="section">
+    <div class="wrap">
+      <SectionHead
+        idx="03"
+        title="三种合作方式，对应三个落地阶段"
+        sub="不知道先做什么，就从诊断开始；团队不会用，就做岗位工作坊；场景已经明确，就进入单场景 FDE 交付。"
       />
       <div class="grid-2">
         {site.services.map((s) => <ServiceCard service={s} />)}
@@ -90,13 +125,13 @@ const base = import.meta.env.BASE_URL;
     </div>
   </section>
 
-  <!-- 04 不做什么 + 弹性团队 -->
+  <!-- 05 合作边界 + 项目责任 -->
   <section class="section">
     <div class="wrap">
       <SectionHead
-        idx="03"
-        title="我不做什么"
-        sub="先说清楚边界，省掉后面两次会议。"
+        idx="04"
+        title="合作之前，先把规则讲清楚"
+        sub="边界不是少做事，而是让投入、责任和验收在开始前就有共同口径。"
       />
       <div class="grid-3">
         {site.noList.map((n) => (
@@ -108,14 +143,14 @@ const base = import.meta.env.BASE_URL;
       </div>
 
       <div style="margin-top: 40px">
-        <h3>关于「团队」：固定的是责任，弹性的是能力</h3>
+        <h3>一个项目负责人，按需补齐专业能力</h3>
         <p style="margin-top: 8px; max-width: 680px">
-          我一个人做诊断和落地。需要时，从长期合作的名单里按项目组队，项目结束即解散。
+          我负责从业务诊断到验收的完整闭环。项目需要额外能力时，再引入设计、工程、行业或合规角色，避免为一单项目搭一套冗余团队。
         </p>
         <div class="table-wrap" style="margin-top: 18px">
           <table>
             <thead>
-              <tr><th>固定的部分（永远是我）</th><th>弹性的部分（按项目请）</th></tr>
+              <tr><th>始终由我负责</th><th>按项目引入</th></tr>
             </thead>
             <tbody>
               <tr>
@@ -134,42 +169,42 @@ const base = import.meta.env.BASE_URL;
     </div>
   </section>
 
-  <!-- 05 价格 -->
+  <!-- 06 合作方式 -->
   <section class="section">
     <div class="wrap">
       <SectionHead
-        idx="04"
-        title="价格与合作方式"
-        sub="先给数字，再谈方案。价格透明能省掉一半沟通。"
+        idx="05"
+        title="合作方式与报价原则"
+        sub="先确认范围，再确认价格。每一笔费用都对应明确交付物、双方投入和验收方式。"
       />
       <div class="grid-2">
         <article class="card">
-          <h4>业务诊断</h4>
-          <p style="font-size: 22px; color: var(--ink); font-weight: 700; margin: 10px 0 6px">{site.price}</p>
-          <p>60–90 分钟，带真实业务来。结束时你拿到转型画像和下一步路径；不满意当场说，不用付费续单。</p>
+          <h4>诊断与培训</h4>
+          <p style="font-size: 22px; color: var(--ink); font-weight: 700; margin: 10px 0 6px">按范围与交付物报价</p>
+          <p>需求初筛后确认访谈、课程和产出范围。开始前写清日程、交付物、客户配合事项与验收方式。</p>
         </article>
         <article class="card">
-          <h4>一条工作流的 FDE</h4>
-          <p style="font-size: 22px; color: var(--ink); font-weight: 700; margin: 10px 0 6px">按条报价</p>
-          <p>诊断后确定范围再报价。按项目计价，不按月驻场；关键协作角色都有备份人选。</p>
+          <h4>单场景 FDE 交付</h4>
+          <p style="font-size: 22px; color: var(--ink); font-weight: 700; margin: 10px 0 6px">按项目与里程碑报价</p>
+          <p>先验证一个场景，再决定是否扩展。系统对接、数据权限、人工审核和运维责任在方案中单独列明。</p>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- 06 联系 -->
+  <!-- 07 联系 -->
   <section class="section">
     <div class="wrap">
       <SectionHead
-        idx="05"
-        title="带着你的业务和困惑来"
-        sub="不一定是所有业务都值得上 AI。如果判断是不该做，我也会直说。"
+        idx="06"
+        title="先聊 20 分钟，判断是否值得继续"
+        sub="你可以只带一条真实流程：现在谁在做、哪里最耗时、出了问题谁负责。暂时不适合用 AI，我也会直接说明。"
       />
       <div class="btn-row" style="margin-top: 0">
-        <a class="btn btn-solid" href={base + 'book/'}>预约一次诊断</a>
-        <a class="btn" href={`mailto:${site.email}`}>直接发邮件</a>
+        <a class="btn btn-solid" href={base + 'book/'}>预约需求初筛</a>
+        <a class="btn" href={base + 'services/'}>先查看服务方案</a>
       </div>
-      <p class="hint" style="margin-top: 16px">微信：{site.wechat} · 邮箱：{site.email}</p>
+      <p class="hint" style="margin-top: 16px">初筛不需要提交敏感业务数据；具体材料在确认合作与保密边界后提供。</p>
     </div>
   </section>
 </Base>
@@ -221,5 +256,18 @@ const base = import.meta.env.BASE_URL;
 
   .line {
     display: inline;
+  }
+
+  .case-link {
+    color: var(--hot);
+    font-size: 13px;
+    font-weight: 800;
+    text-decoration: none;
+    border-bottom: 1.5px solid rgba(198, 79, 42, 0.35);
+    padding-bottom: 1px;
+  }
+
+  .case-link:hover {
+    border-bottom-color: var(--hot);
   }
 </style>

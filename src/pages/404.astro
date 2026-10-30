@@ -1,19 +1,18 @@
 ---
 import Base from '../layouts/Base.astro';
-import { site } from '../data/site';
 
 const base = import.meta.env.BASE_URL;
 ---
 
-<Base title="页面不存在" description="这个地址没有内容。">
+<Base title="页面不存在" description="这个地址暂时没有内容。">
   <section class="section" style="padding: 120px 0">
     <div class="wrap">
       <p class="eyebrow">404</p>
-      <h1 style="margin: 14px 0 16px; font-size: clamp(30px,4.4vw,50px)">这个地址没有内容。</h1>
-      <p class="lede">可能是我改过链接，也可能是你打错了一个字。</p>
+      <h1 style="margin: 14px 0 16px; font-size: clamp(30px,4.4vw,50px)">这个地址暂时没有内容。</h1>
+      <p class="lede">你可以回到首页，查看服务、方法和行业方案。</p>
       <div class="btn-row">
         <a class="btn btn-solid" href={base}>回首页</a>
-        <a class="btn" href={`mailto:${site.email}`}>告诉我哪里坏了</a>
+        <a class="btn" href={base + 'book/'}>预约需求初筛</a>
       </div>
     </div>
   </section>

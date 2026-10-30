@@ -6,32 +6,32 @@ import { site } from '../data/site';
 const base = import.meta.env.BASE_URL;
 
 const principles = [
-  { n: '01', t: '先分层，再动手', d: '个人技能、工作流、组织机制是三种不同的病。混在一起，就会买错东西。' },
-  { n: '02', t: '先一条，再一张网', d: '不铺摊子。先把一条真实业务跑通，方法可迁移了，再扩展。' },
-  { n: '03', t: '做成等于能教', d: '不会教给身边人的交付，只是临时外包。教会了，我才能离开。' },
-  { n: '04', t: '本体先于智能体', d: '企业可以有很多 Agent。没有自己的业务本体，它们只是一堆不会对话的工具。' },
+  { n: '01', t: '业务基线先于技术方案', d: '先记录当前耗时、质量、成本与风险，再决定改造哪里。没有基线，就不轻易承诺提升比例。' },
+  { n: '02', t: '用 AKA 组成工作流', d: 'Agent 负责执行任务，Knowledge 提供业务规则与上下文，Automation 让流程按触发条件稳定运行。' },
+  { n: '03', t: 'Human in the Loop', d: 'AI 负责整理、生成和建议；人负责触发、判断与验收。涉及资金、客户承诺和系统写回时，必须保留人工门禁。' },
+  { n: '04', t: '先跑通一个，再复制一批', d: '用真实问题集验证一个高价值场景，确认业务结果和团队使用都成立，再扩展到更多岗位与流程。' },
 ];
 
 const steps = [
-  { n: '1', t: '进场', d: '只带一条真实业务' },
-  { n: '2', t: '做成', d: '工作流跑通' },
-  { n: '3', t: '教会', d: '你的人接得住' },
-  { n: '4', t: '离开', d: '方法留在你体内' },
+  { n: '1', t: '诊断', d: '看业务、流程与数据基础' },
+  { n: '2', t: '方案', d: '定范围、分工与验收口径' },
+  { n: '3', t: '验证', d: '小范围跑通并修正问题' },
+  { n: '4', t: '验收', d: '交付文档、培训与结果' },
 ];
 ---
 
-<Base title="方法" description="三层诊断框架、四条原则，以及进场到离开的四步流程。">
+<Base title="交付方法" description="从业务场景、工作流程到组织机制，用 AKA、人工门禁和验收基线完成企业 AI 落地。">
   <section class="section page-head" style="padding-top: clamp(48px,6vw,72px)">
     <div class="wrap">
       <p class="eyebrow">Method</p>
-      <h1 style="margin: 14px 0 16px; font-size: clamp(30px,4.4vw,50px)">先看清卡在哪一层。</h1>
-      <p class="lede">同一句「我们想用 AI」，背后可能是三种完全不同的病。诊断错层，钱就花在错的地方。</p>
+      <h1 style="margin: 14px 0 16px; font-size: clamp(30px,4.4vw,50px)">先找到真正的问题，<br />再决定 AI 做什么。</h1>
+      <p class="lede">同一句“我们想做 AI”，背后可能是场景没选对、流程跑不稳，或者团队接不住。诊断错层，投入就会花在错误的地方。</p>
     </div>
   </section>
 
   <section class="section">
     <div class="wrap">
-      <SectionHead idx="01" title="三层诊断" sub="个人技能、工作流、组织机制。从上往下，越往下越贵也越难。" />
+      <SectionHead idx="01" title="三层诊断" sub="先判断问题属于哪一层，再匹配咨询、培训或 FDE 交付，不用同一套方案解决所有问题。" />
       <div class="grid-3">
         {site.layers.map((l) => (
           <article class="card">
@@ -47,7 +47,7 @@ const steps = [
 
   <section class="section">
     <div class="wrap">
-      <SectionHead idx="02" title="四条原则" sub="全部为了同一件事：我离开之后，你还能自己跑。" />
+      <SectionHead idx="02" title="四条交付原则" sub="让系统能跑、结果能验、风险可控，也让团队在项目结束后仍然会用。" />
       <div class="grid-2">
         {principles.map((p) => (
           <article class="card">
@@ -62,25 +62,68 @@ const steps = [
 
   <section class="section">
     <div class="wrap">
-      <SectionHead idx="03" title="四步流程" sub="进场 → 做成 → 教会 → 离开。四步走完，这个项目就结束了。" />
-      <div class="grid-3">
+      <SectionHead idx="03" title="四步合作流程" sub="每一步都有明确产出；确认达到当前阶段目标，再决定是否进入下一步。" />
+      <div class="process-flow" aria-label="诊断、方案、验证、验收四步合作流程">
         {steps.map((s) => (
-          <article class="card">
+          <article class="card process-step">
             <span class="tag">{s.n}</span>
             <h4 style="margin-top: 10px">{s.t}</h4>
             <p>{s.d}</p>
           </article>
         ))}
-        <article class="card" style="background: var(--tint)">
-          <h4>衡量</h4>
-          <p>个人侧：能自己设计一条工作流、能独立交付、能判断什么不该用 AI。</p>
-          <p style="margin-top: 8px">组织侧：方法离开项目组、有人能带下一场、有一条业务指标被改写。</p>
-        </article>
       </div>
+      <article class="card acceptance-note">
+        <h4>验收不只看演示效果</h4>
+        <p>业务侧：耗时、质量、成本或转化指标是否按约定口径变化。</p>
+        <p style="margin-top: 8px">团队侧：能否独立操作与处理异常。风险侧：权限、人工审核与失败降级是否有效。</p>
+      </article>
       <div class="btn-row">
-        <a class="btn btn-solid" href={base + 'book/'}>预约一次诊断</a>
-        <a class="btn" href={base + 'services/'}>看服务边界</a>
+        <a class="btn btn-solid" href={base + 'book/'}>预约需求初筛</a>
+        <a class="btn" href={base + 'services/'}>查看服务与边界</a>
       </div>
     </div>
   </section>
+
+  <style>
+    .process-flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 40px;
+    }
+
+    .process-step {
+      position: relative;
+    }
+
+    .process-step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      top: 30px;
+      right: -31px;
+      color: var(--accent-dark);
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .acceptance-note {
+      margin-top: 24px;
+      background: var(--tint);
+    }
+
+    @media (max-width: 800px) {
+      .process-flow {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .process-step:not(:last-child)::after {
+        content: "↓";
+        top: auto;
+        right: 50%;
+        bottom: -30px;
+        transform: translateX(50%);
+      }
+    }
+  </style>
 </Base>

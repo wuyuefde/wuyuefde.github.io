@@ -6,18 +6,18 @@ const base = import.meta.env.BASE_URL;
 const hasBackend = Boolean(site.formspree);
 
 const steps = [
-  { n: '1', t: '预约', d: '留下称呼、身份、你现在真正在做的业务。一人公司也算。' },
-  { n: '2', t: '诊断', d: '60–90 分钟 1V1。看清你卡在个人技能、工作流，还是组织机制。' },
-  { n: '3', t: '路径', d: '你拿走一份转型画像，和可走的下一步：一条 FDE，或者先别做。' },
+  { n: '1', t: '20 分钟初筛', d: '了解你的业务、当前卡点和期望结果，判断问题是否适合用 AI 解决。' },
+  { n: '2', t: '给出适配建议', d: '说明建议从诊断、培训还是单场景 FDE 开始；如果暂时不该做，也会直接说明。' },
+  { n: '3', t: '确认正式方案', d: '适合继续时，再确认交付范围、双方投入、时间、费用和验收方式。' },
 ];
 ---
 
-<Base title="预约" description="带一条真实业务来，60–90 分钟 1V1 诊断，结束时拿走转型画像和下一步路径。">
+<Base title="预约需求初筛" description="用 20 分钟说清业务场景、当前卡点与目标，判断适合从诊断、培训还是 FDE 交付开始。">
   <section class="section page-head" style="padding-top: clamp(48px,6vw,72px)">
     <div class="wrap">
       <p class="eyebrow">Book</p>
-      <h1 style="margin: 14px 0 16px; font-size: clamp(30px,4.4vw,50px)">带着你的业务及困惑，<br />预约一次诊断。</h1>
-      <p class="lede">不一定是所有业务都值得上 AI。如果判断是不该做，我会当场说。</p>
+      <h1 style="margin: 14px 0 16px; font-size: clamp(30px,4.4vw,50px)">先聊一条真实业务，<br />不急着谈大方案。</h1>
+      <p class="lede">你不需要先准备完整需求文档。只要说清现在怎么做、哪里最耗时，以及什么错误不能发生，就足够开始。</p>
     </div>
   </section>
 
@@ -46,61 +46,63 @@ const steps = [
             <input id="name" name="name" required maxlength="40" placeholder="怎么称呼你" />
           </div>
           <div class="field">
-            <label for="role">身份</label>
+            <label for="role">你的角色</label>
             <select id="role" name="role" required>
               <option value="">请选择</option>
-              <option>一人公司 / 自由职业</option>
-              <option>创作者 / 自媒体</option>
-              <option>中小企业（10–100 人）</option>
-              <option>大型企业</option>
+              <option>中小企业负责人</option>
+              <option>业务／部门负责人</option>
+              <option>数字化／IT 负责人</option>
+              <option>一人公司／自由职业</option>
               <option>其他</option>
             </select>
           </div>
           <div class="field">
-            <label for="business">你正在做的业务</label>
-            <input id="business" name="business" required maxlength="60" placeholder="一句话：卖什么 / 服务谁" />
+            <label for="business">公司与业务</label>
+            <input id="business" name="business" required maxlength="60" placeholder="一句话：服务谁、提供什么产品或服务" />
           </div>
           <div class="field">
-            <label for="layer">你觉得卡在哪</label>
+            <label for="layer">最想解决的问题</label>
             <select id="layer" name="layer" required>
-              <option value="">不确定也可以</option>
-              <option>个人技能：人会做，但不会判断</option>
-              <option>工作流：每次都要重新拼一次</option>
-              <option>组织机制：只有一个人会用</option>
-              <option>不确定，需要你帮我判断</option>
+              <option value="">请选择最接近的一项</option>
+              <option>不知道应该先做哪个 AI 场景</option>
+              <option>团队买了工具，但不会用或用不好</option>
+              <option>需要管理层或岗位培训</option>
+              <option>希望减少查询、整理和重复操作</option>
+              <option>已有 POC，但无法稳定运行或验收</option>
+              <option>还不确定，需要一起判断</option>
             </select>
           </div>
           <div class="field">
-            <label for="detail">具体卡点</label>
-            <textarea id="detail" name="detail" rows="4" maxlength="400" placeholder="越具体越好：现在怎么做、卡在哪一步、最想省掉哪件重复的事"></textarea>
+            <label for="detail">具体业务卡点</label>
+            <textarea id="detail" name="detail" rows="4" maxlength="400" placeholder="现在谁在做、怎么做、哪里最耗时，以及最想改善的结果"></textarea>
           </div>
           <div class="field">
             <label for="contact">联系方式（微信或邮箱）</label>
-            <input id="contact" name="contact" required maxlength="60" placeholder="微信号 / 邮箱" />
+            <input id="contact" name="contact" required maxlength="60" placeholder="微信号／邮箱" />
           </div>
           <button class="btn btn-solid" type="submit" style="justify-content:center">
             {hasBackend ? '提交预约' : '用邮件发送'}
           </button>
           <p class="hint">
             {hasBackend
-              ? '提交后我会在 1 个工作日内回复。'
-              : '本站未接表单服务：点击后会打开你的邮件客户端，数据不经过任何服务器。也可以直接加微信。'}
+              ? '提交后我会在 1 个工作日内回复。你填写的信息仅用于本次需求沟通。'
+              : '当前表单通过你的邮件客户端发送，不会把内容提交到本站服务器。也可以在右侧直接联系。'}
           </p>
         </form>
 
         <div>
           <div class="card">
-            <h4>更快的方式</h4>
+            <h4>直接联系</h4>
             <p style="margin-top: 8px">微信：<span style="color: var(--ink); font-weight: 700">{site.wechat}</span></p>
             <p>邮箱：<a href={`mailto:${site.email}`} style="color: var(--hot); font-weight: 600">{site.email}</a></p>
             {site.wechatQr && <img src={base + site.wechatQr.replace(/^\//, '')} alt="微信二维码" width="150" style="margin-top: 14px; border: 2px solid var(--ink); border-radius: 12px; background: #fff" />}
           </div>
           <div class="callout" style="margin-top: 16px">
-            <strong style="color: var(--ink)">不适合请止步。</strong>你还没有自己的业务，就先别谈 AI 落地。先去把一个东西卖出去，再回来。
+            <strong style="color: var(--ink)">初筛不需要敏感材料。</strong>请不要在表单里上传客户名单、账号密码、密钥或未脱敏业务数据。
           </div>
           <div class="card" style="margin-top: 16px">
-            <h4>费用</h4>
-            <p style="margin-top: 6px">{site.price}。诊断结束即结束，不绑定后续服务。</p>
+            <h4>初筛之后</h4>
+            <p style="margin-top: 6px">如果适合继续，我会说明建议的合作方式、交付范围和费用；如果暂时不适合，也会给出原因与可行的前置动作。</p>
           </div>
         </div>
       </div>
@@ -120,13 +122,13 @@ const steps = [
           const to = form.dataset.email || '';
           const body = [
             '称呼：' + get('name'),
-            '身份：' + get('role'),
-            '业务：' + get('business'),
-            '卡点层级：' + get('layer'),
+            '角色：' + get('role'),
+            '公司与业务：' + get('business'),
+            '想解决的问题：' + get('layer'),
             '具体卡点：' + (get('detail') || '（未填）'),
             '联系方式：' + get('contact'),
           ].join('\n');
-          const subject = '诊断预约｜' + get('name') + '｜' + get('business');
+          const subject = 'AI 落地需求初筛｜' + get('name') + '｜' + get('business');
           window.location.href =
             'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
         });
