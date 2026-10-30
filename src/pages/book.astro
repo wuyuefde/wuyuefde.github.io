@@ -92,8 +92,8 @@ const steps = [
           <div class="card">
             <h4>更快的方式</h4>
             <p style="margin-top: 8px">微信：<span style="color: var(--ink); font-weight: 700">{site.wechat}</span></p>
-            <p>邮箱：<a href={`mailto:${site.email}`} style="color: var(--accent)">{site.email}</a></p>
-            {site.wechatQr && <img src={base + site.wechatQr.replace(/^\//, '')} alt="微信二维码" width="150" style="margin-top: 14px; border: 1px solid var(--rule); border-radius: 0" />}
+            <p>邮箱：<a href={`mailto:${site.email}`} style="color: var(--hot); font-weight: 600">{site.email}</a></p>
+            {site.wechatQr && <img src={base + site.wechatQr.replace(/^\//, '')} alt="微信二维码" width="150" style="margin-top: 14px; border: 2px solid var(--ink); border-radius: 12px; background: #fff" />}
           </div>
           <div class="callout" style="margin-top: 16px">
             <strong style="color: var(--ink)">不适合请止步。</strong>你还没有自己的业务，就先别谈 AI 落地。先去把一个东西卖出去，再回来。

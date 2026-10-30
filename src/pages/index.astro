@@ -10,7 +10,23 @@ const base = import.meta.env.BASE_URL;
 <Base title="主页" description={site.lead}>
   <!-- 01 首屏 -->
   <section class="hero">
-    <div class="hero-deco"></div>
+    <div class="hero-deco" aria-hidden="true">
+      <svg viewBox="0 0 260 240">
+        <g stroke="#43301C" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+          <circle cx="100" cy="18" r="9" fill="#4A2C17" stroke="none" />
+          <circle cx="126" cy="18" r="9" fill="#F0940A" stroke="none" />
+          <circle cx="152" cy="18" r="9" fill="#1D74D0" stroke="none" />
+          <polygon points="122,40 138,40 144,62 116,62" fill="#F2E2AE" />
+          <polygon points="96,62 164,62 178,92 82,92" fill="#F7EDCB" />
+          <polygon points="88,92 172,92 164,150 96,150" fill="#F2E2AE" />
+          <rect x="92" y="150" width="76" height="26" rx="8" fill="#F0940A" />
+          <polygon points="96,176 164,176 176,224 84,224" fill="#F7EDCB" />
+          <path d="M172,102 C204,98 208,138 174,144" fill="none" stroke-width="10" />
+          <path d="M88,100 L66,116 L88,124" fill="#F2E2AE" stroke-width="6" />
+          <ellipse cx="112" cy="116" rx="12" ry="22" fill="#FBF3D8" stroke="none" opacity=".8" />
+        </g>
+      </svg>
+    </div>
     <div class="wrap hero-inner">
       <p class="eyebrow">{site.role} · {site.city} · 一人主理，按项目组队</p>
       <h1>
@@ -162,12 +178,24 @@ const base = import.meta.env.BASE_URL;
   .hero {
     position: relative;
     overflow: hidden;
-    padding: clamp(60px, 8.5vw, 108px) 0 clamp(52px, 6.5vw, 84px);
-    border-bottom: 1px solid var(--rule);
+    padding: clamp(52px, 7vw, 92px) 0 clamp(46px, 5.5vw, 72px);
+    border-bottom: 2px solid var(--ink);
   }
 
   .hero-deco {
-    display: none;
+    position: absolute;
+    right: clamp(16px, 6vw, 96px);
+    top: 50%;
+    transform: translateY(-50%);
+    width: clamp(130px, 15vw, 200px);
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.95;
+  }
+
+  .hero-deco svg {
+    width: 100%;
+    height: auto;
   }
 
   .hero-inner {
@@ -177,16 +205,18 @@ const base = import.meta.env.BASE_URL;
   }
 
   .hero .eyebrow {
-    display: block;
-    width: fit-content;
-    padding-top: 11px;
-    border-top: 2px solid var(--ink);
-    letter-spacing: 0.14em;
+    margin-bottom: 24px;
   }
 
   .hero h1 {
-    margin: 26px 0 22px;
+    margin: 0 0 22px;
     max-width: 16em;
+  }
+
+  @media (max-width: 900px) {
+    .hero-deco {
+      display: none;
+    }
   }
 
   .line {
