@@ -312,6 +312,15 @@ p {
   max-width: var(--measure);
 }
 
+/* 页面标题区：与下方内容之间固定 60px */
+.page-head {
+  padding-bottom: 0;
+}
+
+.page-head + .section {
+  padding-top: 60px;
+}
+
 /* ---------- 卡片 ---------- */
 .grid-2 {
   display: grid;
