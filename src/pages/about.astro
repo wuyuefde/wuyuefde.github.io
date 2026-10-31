@@ -6,18 +6,18 @@ import { site } from '../data/site';
 const base = import.meta.env.BASE_URL;
 
 const timeline = [
-  { year: '早期职业阶段', t: '风控建模与数据分析', d: '在金融服务业务中做过风控建模与数据分析，习惯从指标、样本和业务规则出发，而不是从工具功能出发。' },
-  { year: '随后', t: '贷后运营与策略体系', d: '做过 M1 运营策略和贷后策略体系，理解策略、人员、供应方与监控指标如何共同影响一条业务链路。' },
-  { year: '近一年', t: 'AI 外呼与智能路由', d: '牵头 AI 催收大模型项目落地，并设计外呼线路动态路由机制，把模型能力放回真实业务流程中验证。' },
+  { year: '早期职业阶段', t: '风控建模与数据分析', action: '先量基线', d: '在金融服务业务里做风控建模和数据分析：先用指标和样本验证，再讨论方案。留下的动作是——把现状量出来，不凭感觉判断值不值得做。' },
+  { year: '随后', t: '贷后运营与策略体系', action: '分清责任', d: '做贷后策略与 M1 运营，把策略、人员、外部供应方和监控指标放在同一条链路上。留下的动作是——先讲清谁负责，哪些判断必须留给人。' },
+  { year: '近一年', t: 'AI 外呼与智能路由', action: '跑通再交接', d: '牵头 AI 外呼与线路动态路由落地，把模型放回真实业务流程里验证：标准化环节交给 AI，异常与关键判断留给人。留下的动作是——跑通之后，交给团队自己维护。' },
 ];
 ---
 
-<Base title="关于主理人" description="7 年金融业务与策略经验，做过 AI 外呼项目落地；负责业务诊断、方案设计、交付与验收。">
+<Base title="关于主理人" description="7 年金融业务与策略经验。做法固定为三步：先量业务基线，再设计人工门禁，最后跑通交给团队——这就是我在项目里做 FDE 的方式。">
   <section class="section page-head" style="padding-top: clamp(48px,6vw,72px)">
     <div class="wrap">
       <p class="eyebrow">About</p>
-      <h1 style="margin: 14px 0 16px; font-size: clamp(30px,4.4vw,50px)">做过业务策略，<br />也下场做 AI 落地。</h1>
-      <p class="lede">我更关心一项 AI 投入能不能进入日常流程、能不能被团队使用、能不能通过业务验收，而不是演示时看起来有多先进。</p>
+      <h1 style="margin: 14px 0 16px; font-size: clamp(30px,4.4vw,50px)">先把业务跑通，<br />再把 AI 交出去。</h1>
+      <p class="lede">我的经历集中在容错很低的地方：金融风控、贷后运营、AI 外呼。那里没有“先上线看看”——每一步要留痕，每个关键判断要留人。这套习惯，现在就是我做 FDE 的方式。</p>
     </div>
   </section>
 
@@ -32,7 +32,7 @@ const timeline = [
               <p class="muted">{site.role} · {site.city}</p>
             </div>
           </div>
-          <p style="margin-top: 16px">7 年金融业务与策略经验。做过风控、数据分析、贷后运营与 AI 外呼项目，现在把这些经验用于企业 AI 诊断、培训和 FDE 交付。</p>
+          <p style="margin-top: 16px">7 年金融业务与策略经验，做过风控、数据分析、贷后运营和 AI 外呼。现在用同一套做法做企业 AI 诊断、培训和 FDE 交付：先量基线，再布门禁，最后跑通交给团队。</p>
           <div class="tag-row">
             <span class="tag">业务出身</span>
             <span class="tag ghost">AI 项目落地</span>
@@ -52,13 +52,14 @@ const timeline = [
 
   <section class="section">
     <div class="wrap">
-      <SectionHead idx="02" title="经历如何变成交付能力" sub="不列无法核对的头衔，只呈现与这次合作直接相关的业务经验。" />
+      <SectionHead idx="02" title="三段经历，留下三个动作" sub="行业换了，做法没换。下面这三件事，是我在每个项目里固定要做的。" />
       <div class="grid-3">
         {timeline.map((t) => (
           <article class="card">
             <p class="eyebrow">{t.year}</p>
             <h4 style="margin: 8px 0 6px">{t.t}</h4>
-            <p>{t.d}</p>
+            <span class="tag">{t.action}</span>
+            <p style="margin-top: 10px">{t.d}</p>
           </article>
         ))}
       </div>
@@ -67,14 +68,14 @@ const timeline = [
 
   <section class="section">
     <div class="wrap">
-      <SectionHead idx="03" title="这些经历，对客户有什么用" sub="技术会更新，业务拆解、风险意识和验收方法可以复用。" />
+      <SectionHead idx="03" title="这套做法，在你的项目里是什么样" sub="诊断、交付、交接三个阶段，动作是固定的；具体内容按你的业务来。" />
       <div class="table-wrap">
         <table>
-          <thead><tr><th>我带来的能力</th><th>在项目里的具体作用</th></tr></thead>
+          <thead><tr><th>固定动作</th><th>在项目里具体做什么</th></tr></thead>
           <tbody>
-            <tr><td>业务拆解</td><td>把“想用 AI 提效”拆成岗位、任务、流程、规则和可衡量指标</td></tr>
-            <tr><td>风险意识</td><td>提前设计权限、人工审核、异常处理与失败降级，不让演示直接替代生产验证</td></tr>
-            <tr><td>验收思维</td><td>先测基线、再定问题集和验收口径，避免项目结束时双方对“做成了”理解不同</td></tr>
+            <tr><td>先量基线</td><td>诊断期把现状的耗时、错误率、人工占用比例量出来，再决定先做哪一条流程</td></tr>
+            <tr><td>设计门禁</td><td>哪些交给 AI、哪些必须转给人、出错了怎么处理，写进方案，而不是嘴上说</td></tr>
+            <tr><td>跑通再交接</td><td>文档、培训、验收问题集一起给，团队能自己跑、能自己改</td></tr>
           </tbody>
         </table>
       </div>
