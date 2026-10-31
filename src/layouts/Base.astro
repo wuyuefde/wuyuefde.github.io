@@ -78,5 +78,27 @@ const jsonLd = {
         </p>
       </div>
     </footer>
+    <script is:inline>
+      (function () {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var items = document.querySelectorAll('.section .wrap > *');
+        items.forEach(function (el) {
+          el.classList.add('will-reveal');
+        });
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add('is-revealed');
+              io.unobserve(entry.target);
+            });
+          },
+          { rootMargin: '0px 0px -6% 0px', threshold: 0.08 }
+        );
+        items.forEach(function (el) {
+          io.observe(el);
+        });
+      })();
+    </script>
   </body>
 </html>
