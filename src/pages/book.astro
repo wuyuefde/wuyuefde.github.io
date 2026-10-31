@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import { site } from '../data/site';
 
 const base = import.meta.env.BASE_URL;
-const hasBackend = Boolean(site.formspree);
+const formUrl = site.formUrl;
 
 const steps = [
   { n: '1', t: '20 分钟初筛', d: '了解你的业务、当前卡点和期望结果，判断问题是否适合用 AI 解决。' },
@@ -34,61 +34,12 @@ const steps = [
       </div>
 
       <div class="grid-2" style="align-items: start">
-        <form
-          class="form"
-          id="book-form"
-          action={hasBackend ? site.formspree : `mailto:${site.email}`}
-          method="POST"
-          data-email={site.email}
-        >
-          <div class="field">
-            <label for="name">称呼</label>
-            <input id="name" name="name" required maxlength="40" placeholder="怎么称呼你" />
-          </div>
-          <div class="field">
-            <label for="role">你的角色</label>
-            <select id="role" name="role" required>
-              <option value="">请选择</option>
-              <option>中小企业负责人</option>
-              <option>业务／部门负责人</option>
-              <option>数字化／IT 负责人</option>
-              <option>一人公司／自由职业</option>
-              <option>其他</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="business">公司与业务</label>
-            <input id="business" name="business" required maxlength="60" placeholder="一句话：服务谁、提供什么产品或服务" />
-          </div>
-          <div class="field">
-            <label for="layer">最想解决的问题</label>
-            <select id="layer" name="layer" required>
-              <option value="">请选择最接近的一项</option>
-              <option>不知道应该先做哪个 AI 场景</option>
-              <option>团队买了工具，但不会用或用不好</option>
-              <option>需要管理层或岗位培训</option>
-              <option>希望减少查询、整理和重复操作</option>
-              <option>已有 POC，但无法稳定运行或验收</option>
-              <option>还不确定，需要一起判断</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="detail">具体业务卡点</label>
-            <textarea id="detail" name="detail" rows="4" maxlength="400" placeholder="现在谁在做、怎么做、哪里最耗时，以及最想改善的结果"></textarea>
-          </div>
-          <div class="field">
-            <label for="contact">联系方式（微信或邮箱）</label>
-            <input id="contact" name="contact" required maxlength="60" placeholder="微信号／邮箱" />
-          </div>
-          <button class="btn btn-solid" type="submit" style="justify-content:center">
-            {hasBackend ? '提交预约' : '用邮件发送'}
-          </button>
-          <p class="hint">
-            {hasBackend
-              ? '提交后我会在 1 个工作日内回复。你填写的信息仅用于本次需求沟通。'
-              : '当前表单通过你的邮件客户端发送，不会把内容提交到本站服务器。也可以在右侧直接联系。'}
-          </p>
-        </form>
+        <article class="card form-entry">
+          <h4>填写预约表</h4>
+          <p style="margin-top: 8px">大约 2 分钟。写上称呼、角色、你们在做什么，以及最想解决的问题。</p>
+          <a class="btn btn-solid form-btn" href={formUrl} target="_blank" rel="noopener noreferrer">打开预约表单</a>
+          <p class="hint" style="margin-top: 14px">表单在飞书页面打开，提交后我当天就能看到，1 个工作日内回复。你填写的信息仅用于本次需求沟通。</p>
+        </article>
 
         <div>
           <div class="card">
@@ -108,31 +59,13 @@ const steps = [
       </div>
     </div>
   </section>
-
-  {!hasBackend && (
-    <script is:inline>
-      const form = document.getElementById('book-form');
-      if (form) {
-        form.addEventListener('submit', function (e) {
-          e.preventDefault();
-          const data = new FormData(form);
-          const get = function (k) {
-            return String(data.get(k) || '').trim();
-          };
-          const to = form.dataset.email || '';
-          const body = [
-            '称呼：' + get('name'),
-            '角色：' + get('role'),
-            '公司与业务：' + get('business'),
-            '想解决的问题：' + get('layer'),
-            '具体卡点：' + (get('detail') || '（未填）'),
-            '联系方式：' + get('contact'),
-          ].join('\n');
-          const subject = 'AI 落地需求初筛｜' + get('name') + '｜' + get('business');
-          window.location.href =
-            'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-        });
-      }
-    </script>
-  )}
 </Base>
+
+<style>
+  .form-btn {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 18px;
+  }
+</style>

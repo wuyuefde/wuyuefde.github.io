@@ -11,7 +11,7 @@ export const site = {
   wechat: 'wuyue_eth',
   avatar: '',
   wechatQr: '',
-  formspree: '',
+  formUrl: 'https://my.feishu.cn/share/base/shrcn1bwmEIbg9PpoFc5JFo1ewg',
   price: '20 分钟需求初筛，先确认场景与适配度',
 
   headline: ['让 AI 从一次试点，', '变成团队每天在用的流程。'],
