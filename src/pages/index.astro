@@ -10,23 +10,6 @@ const base = import.meta.env.BASE_URL;
 <Base title="企业 AI 落地" description={site.lead}>
   <!-- 01 首屏 -->
   <section class="hero">
-    <div class="hero-deco" aria-hidden="true">
-      <svg viewBox="0 0 260 240">
-        <g stroke="#43301C" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
-          <circle cx="100" cy="18" r="9" fill="#4A2C17" stroke="none" />
-          <circle cx="126" cy="18" r="9" fill="#F0940A" stroke="none" />
-          <circle cx="152" cy="18" r="9" fill="#1D74D0" stroke="none" />
-          <polygon points="122,40 138,40 144,62 116,62" fill="#F2E2AE" />
-          <polygon points="96,62 164,62 178,92 82,92" fill="#F7EDCB" />
-          <polygon points="88,92 172,92 164,150 96,150" fill="#F2E2AE" />
-          <rect x="92" y="150" width="76" height="26" rx="8" fill="#F0940A" />
-          <polygon points="96,176 164,176 176,224 84,224" fill="#F7EDCB" />
-          <path d="M172,102 C204,98 208,138 174,144" fill="none" stroke-width="10" />
-          <path d="M88,100 L66,116 L88,124" fill="none" stroke-width="6" />
-          <ellipse cx="112" cy="116" rx="12" ry="22" fill="#FBF3D8" stroke="none" opacity=".8" />
-        </g>
-      </svg>
-    </div>
     <div class="wrap hero-inner">
       <p class="eyebrow">{site.role} · {site.city}</p>
       <h1>
@@ -74,25 +57,25 @@ const base = import.meta.env.BASE_URL;
       <SectionHead
         idx="02"
         title="三个行业场景，看方案怎样落到业务里"
-        sub="不是罗列 AI 功能，而是把表面诉求、第一期切口、交付物、人工门禁与验收边界讲清楚。以下均为脱敏案例，不代表真实客户成果。"
+        sub="不是罗列 AI 功能，而是把原来的做法、改成什么样、哪些还得人来决定讲清楚。以下均为脱敏案例，不代表真实客户成果。"
       />
       <div class="grid-3">
         <article class="card">
-          <span class="tag ghost">批发零售 · 知识资产化</span>
-          <h3 style="margin: 12px 0 8px">从 2–5 天报价，到当天生成候选清单</h3>
-          <p>把找货、替代、配套与出处做成工作流，最终价格与对外发送仍由人确认。</p>
+          <p class="industry">批发零售</p>
+          <h3 style="margin: 4px 0 8px">报价从等两三天，变成当天出清单</h3>
+          <p>把找货、替代型号和配套件整理成流程，最后的价格和发出去，仍由业务员确认。</p>
           <p style="margin-top: 14px"><a class="case-link" href={base + 'demo/#wholesale-quote'}>查看酒店用品批发方案 →</a></p>
         </article>
         <article class="card">
-          <span class="tag ghost">制造业 · 模糊输入结构化</span>
-          <h3 style="margin: 12px 0 8px">从一句“上次那种”，到可确认的规格草稿</h3>
-          <p>用历史订单锚定模糊指代，一次性补齐参数，不让 AI 猜测后直接下单。</p>
+          <p class="industry">制造业</p>
+          <h3 style="margin: 4px 0 8px">客户只说「上次那种」，也能问清规格</h3>
+          <p>先翻这个客户的历史订单，一次把缺的参数问全，不让 AI 猜完就直接下单。</p>
           <p style="margin-top: 14px"><a class="case-link" href={base + 'demo/#manufacturing-inquiry'}>查看紧固件询价方案 →</a></p>
         </article>
         <article class="card">
-          <span class="tag ghost">电商 · 跨系统动作闭环</span>
-          <h3 style="margin: 12px 0 8px">让缺货告警直接触发动作，而不止是上大屏幕</h3>
-          <p>打通库存对账、异常卡片与投放建议，人工确认后执行并保留追溯记录。</p>
+          <p class="industry">电商</p>
+          <h3 style="margin: 4px 0 8px">缺货不只报个警，还告诉你该做什么</h3>
+          <p>库存一对账就给出处理建议，人工确认后执行，每一步都留痕可查。</p>
           <p style="margin-top: 14px"><a class="case-link" href={base + 'demo/#ecommerce-action'}>查看多平台电商方案 →</a></p>
         </article>
       </div>
@@ -209,22 +192,6 @@ const base = import.meta.env.BASE_URL;
     border-bottom: 2px solid var(--ink);
   }
 
-  .hero-deco {
-    position: absolute;
-    right: clamp(16px, 6vw, 96px);
-    top: 50%;
-    transform: translateY(-50%);
-    width: clamp(130px, 15vw, 200px);
-    z-index: 1;
-    pointer-events: none;
-    opacity: 0.95;
-  }
-
-  .hero-deco svg {
-    width: 100%;
-    height: auto;
-  }
-
   .hero-inner {
     position: relative;
     z-index: 3;
@@ -240,14 +207,19 @@ const base = import.meta.env.BASE_URL;
     max-width: 16em;
   }
 
-  @media (max-width: 900px) {
-    .hero-deco {
-      display: none;
-    }
-  }
-
   .line {
     display: inline;
+  }
+
+  .industry {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 0 4px 2px;
+    font-size: 21px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+    background: linear-gradient(transparent 62%, rgba(240, 148, 10, 0.42) 62%);
   }
 
   .case-link {
