@@ -35,6 +35,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 72px;
   background: var(--paper);
 }
 
@@ -182,6 +183,7 @@ p {
 .nav {
   position: sticky;
   top: 0;
+  z-index: 50;
   display: block;
   background: var(--paper);
   border-bottom: 2px solid var(--ink);
