@@ -19,32 +19,12 @@ const base = import.meta.env.BASE_URL;
     </>
   )}
   <dl class="spec-grid">
-    {detailed && (
-      <>
-        <dt>典型场景</dt>
-        <dd>{service.scenarios}</dd>
-      </>
-    )}
     <dt>交付物</dt>
     <dd>{service.delivery}</dd>
-    {detailed && (
-      <>
-        <dt>方案示例</dt>
-        <dd>{service.example}</dd>
-      </>
-    )}
     <dt>周期</dt>
     <dd>{service.duration}</dd>
     <dt>验收</dt>
     <dd>{service.success}</dd>
-    {detailed && (
-      <>
-        <dt>客户投入</dt>
-        <dd>{service.client}</dd>
-        <dt>交付后</dt>
-        <dd>{service.support}</dd>
-      </>
-    )}
     <dt>边界</dt>
     <dd>{service.leave}</dd>
   </dl>
