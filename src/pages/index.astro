@@ -41,37 +41,29 @@ const base = import.meta.env.BASE_URL;
     </div>
   </section>
 
-  <!-- 02 拆解示范 -->
+  <!-- 02 三层诊断 -->
   <section class="section">
     <div class="wrap">
       <SectionHead
         idx="01"
-        title="以客户咨询为例，看一条流程怎样被拆开"
-        sub="用最常见、也最容易被低估的场景，演示从“想上 AI 客服”到一条可验收流程的三步拆法。"
+        title="同一句「我们想做 AI」，背后是三种不同的问题"
+        sub="先判断问题落在哪一层，再决定是补场景、改流程，还是建机制。层判断错了，投入就会花在错误的地方。"
       />
       <div class="grid-3">
-        <article class="card">
-          <span class="tag">表面诉求</span>
-          <h4 style="margin-top: 10px">上了一套 AI 客服，问题并没有变少</h4>
-          <p>工具接上之后才发现：哪些问题有标准答案没人梳理，客户问法五花八门，转人工没有规则，答错了也没人复核。工具解决的是回答速度，不是回答质量。</p>
-        </article>
-        <article class="card">
-          <span class="tag">真实卡点</span>
-          <h4 style="margin-top: 10px">要拆的其实是三层东西</h4>
-          <p>知识覆盖：哪些问题有稳定答案；问题分层：哪些必须转给人；口径一致：同一个问题不能有几种说法。这三层不定清楚，模型越强，只是把错误回答得更快。</p>
-        </article>
-        <article class="card">
-          <span class="tag">可复用方法</span>
-          <h4 style="margin-top: 10px">换个场景，骨架是一样的</h4>
-          <p>知识库、首答、转人工规则、准确率抽检。把客服换成报价、对账或单据审核，拆法不变——这也是我在金融 AI 项目里反复验证过的一点。</p>
-        </article>
+        {site.layers.map((l) => (
+          <article class="card">
+            <p class="eyebrow">{l.n}</p>
+            <h3 style="margin: 8px 0 6px">{l.name}</h3>
+            <p style="color: var(--ink)">{l.q}</p>
+            <p class="muted" style="margin-top: 8px">典型症状：{l.symptom}</p>
+          </article>
+        ))}
       </div>
       <div class="callout" style="margin-top: 18px">
-        判断标准不是“AI 能不能做”，而是这条流程是否<span class="key">高频、有标准答案、有明确负责人，并且能用一组问题集验收</span>。
+        <span class="key">诊断错层，钱就花在错的地方。</span>判断清楚属于哪一层，再决定做诊断、培训还是单场景交付，而不是先买一套工具。
       </div>
       <div class="btn-row">
-        <a class="btn" href={base + 'demo/'}>看三个脱敏案例</a>
-        <a class="btn" href={base + 'book/'}>聊聊你的业务流程</a>
+        <a class="btn" href={base + 'method/'}>查看交付方法与验收口径</a>
       </div>
     </div>
   </section>
