@@ -35,39 +35,39 @@ const base = import.meta.env.BASE_URL;
       <p class="lede">{site.lead}</p>
       <div class="btn-row">
         <a class="btn btn-solid" href={base + 'book/'}>预约需求初筛</a>
-        <a class="btn" href={base + 'demo/'}>查看行业方案</a>
+        <a class="btn" href={base + 'demo/'}>查看脱敏案例</a>
       </div>
       <p class="hint" style="margin-top: 16px">{site.price} · 不合适会继续，也会直接说明</p>
     </div>
   </section>
 
-  <!-- 02 证据 -->
+  <!-- 02 拆解示范 -->
   <section class="section">
     <div class="wrap">
       <SectionHead
         idx="01"
-        title="一条 AI 外呼项目，如何拆成可落地的业务流"
-        sub="来自我过往金融 AI 项目的脱敏经历。不展示机构名称与经营数据，重点看业务判断与交付过程。"
+        title="以客户咨询为例，看一条流程怎样被拆开"
+        sub="用最常见、也最容易被低估的场景，演示从“想上 AI 客服”到一条可验收流程的三步拆法。"
       />
       <div class="grid-3">
         <article class="card">
-          <span class="tag">之前</span>
-          <h4 style="margin-top: 10px">业务缺的不是一个机器人</h4>
-          <p>AI 外呼不是接上模型就结束。案件状态、话术边界、线路选择、人工介入和效果监控，必须放在同一条业务链路里。</p>
+          <span class="tag">表面诉求</span>
+          <h4 style="margin-top: 10px">上了一套 AI 客服，问题并没有变少</h4>
+          <p>工具接上之后才发现：哪些问题有标准答案没人梳理，客户问法五花八门，转人工没有规则，答错了也没人复核。工具解决的是回答速度，不是回答质量。</p>
         </article>
         <article class="card">
-          <span class="tag">现场</span>
-          <h4 style="margin-top: 10px">先写清策略与人机分工</h4>
-          <p>参与 AI 催收大模型落地，围绕外呼策略、线路动态路由与监控指标拆解流程；标准化环节交给 AI，异常与关键判断保留给人。</p>
+          <span class="tag">真实卡点</span>
+          <h4 style="margin-top: 10px">要拆的其实是三层东西</h4>
+          <p>知识覆盖：哪些问题有稳定答案；问题分层：哪些必须转给人；口径一致：同一个问题不能有几种说法。这三层不定清楚，模型越强，只是把错误回答得更快。</p>
         </article>
         <article class="card">
-          <span class="tag">沉淀</span>
-          <h4 style="margin-top: 10px">形成可迁移的落地方法</h4>
-          <p>从业务目标、供应方能力、流程测试到验收口径，先让每一步可观察、可复核，再讨论扩大自动化范围。</p>
+          <span class="tag">可复用方法</span>
+          <h4 style="margin-top: 10px">换个场景，骨架是一样的</h4>
+          <p>知识库、首答、转人工规则、准确率抽检。把客服换成报价、对账或单据审核，拆法不变——这也是我在金融 AI 项目里反复验证过的一点。</p>
         </article>
       </div>
       <div class="callout" style="margin-top: 18px">
-        这套方法也能用于客服、销售跟进和运营处理：<span class="key">不是复制某个行业的话术，而是复制“业务拆解—小范围验证—人工门禁—指标验收”的过程。</span>
+        判断标准不是“AI 能不能做”，而是这条流程是否<span class="key">高频、有标准答案、有明确负责人，并且能用一组问题集验收</span>。
       </div>
       <div class="btn-row">
         <a class="btn" href={base + 'demo/'}>看三个脱敏案例</a>
