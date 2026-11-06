@@ -30,7 +30,7 @@ const base = import.meta.env.BASE_URL;
       <SectionHead
         idx="01"
         title="同一句「我们想做 AI」，背后是三种不同的问题"
-        sub="先判断问题落在哪一层，再决定是补场景、改流程，还是建机制。层判断错了，投入就会花在错误的地方。"
+        sub="先判断问题在哪一层，再决定补场景、改流程还是建机制。判断错了，钱就花错地方。"
       />
       <div class="grid-3">
         {site.layers.map((l) => (
@@ -43,7 +43,7 @@ const base = import.meta.env.BASE_URL;
         ))}
       </div>
       <div class="callout" style="margin-top: 18px">
-        <span class="key">诊断错层，钱就花在错的地方。</span>判断清楚属于哪一层，再决定做诊断、培训还是单场景交付，而不是先买一套工具。
+        <span class="key">诊断错层，钱就花错。</span>先判断属于哪一层，再决定做诊断、培训还是交付，而不是先买工具。
       </div>
       <div class="btn-row">
         <a class="btn" href={base + 'method/'}>查看交付方法与验收口径</a>
@@ -57,7 +57,7 @@ const base = import.meta.env.BASE_URL;
       <SectionHead
         idx="02"
         title="三个行业场景，看方案怎样落到业务里"
-        sub="不是罗列 AI 功能，而是把原来的做法、改成什么样、哪些还得人来决定讲清楚。以下均为脱敏案例，不代表真实客户成果。"
+        sub="讲清原来怎么做、改成什么样、哪些仍由人决定。以下均为脱敏案例。"
       />
       <div class="grid-3">
         <article class="card">
@@ -80,7 +80,7 @@ const base = import.meta.env.BASE_URL;
         </article>
       </div>
       <div class="callout" style="margin-top: 18px">
-        另有工艺经验萃取、三系统对账、包装预检、内容资产化等 <span class="key">7 个可诊断场景</span>，按业务问题与参考交付物简要展示。
+        另有工艺经验萃取、三系统对账等 <span class="key">7 个可诊断场景</span>。
         <a class="case-link" href={base + 'demo/#more-scenarios'}>查看完整场景清单 →</a>
       </div>
     </div>
@@ -92,7 +92,7 @@ const base = import.meta.env.BASE_URL;
       <SectionHead
         idx="03"
         title="三种合作方式，对应三个落地阶段"
-        sub="不知道先做什么，就从诊断开始；团队不会用，就做岗位工作坊；场景已经明确，就进入单场景 FDE 交付。"
+        sub="不知从哪开始就做诊断；团队不会用就做培训；场景明确就做单场景交付。"
       />
       <div class="grid-2">
         {site.services.map((s) => <ServiceCard service={s} />)}
@@ -106,7 +106,7 @@ const base = import.meta.env.BASE_URL;
       <SectionHead
         idx="04"
         title="合作之前，先把规则讲清楚"
-        sub="边界不是少做事，而是让投入、责任和验收在开始前就有共同口径。"
+        sub="让投入、责任和验收在开始前就有共同口径。"
       />
       <div class="grid-3">
         {site.noList.map((n) => (
@@ -120,7 +120,7 @@ const base = import.meta.env.BASE_URL;
       <div style="margin-top: 40px">
         <h3>一个项目负责人，按需补齐专业能力</h3>
         <p style="margin-top: 8px; max-width: 680px">
-          我负责从业务诊断到验收的完整闭环。项目需要额外能力时，再引入设计、工程、行业或合规角色，避免为一单项目搭一套冗余团队。
+          我负责诊断到验收的完整闭环；需要时按需引入设计、工程或行业专家。
         </p>
         <div class="table-wrap" style="margin-top: 18px">
           <table>

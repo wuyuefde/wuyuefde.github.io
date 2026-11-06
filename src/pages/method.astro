@@ -6,10 +6,10 @@ import { site } from '../data/site';
 const base = import.meta.env.BASE_URL;
 
 const principles = [
-  { n: '01', t: '业务基线先于技术方案', d: '先记录当前耗时、质量、成本与风险，再决定改造哪里。没有基线，就不轻易承诺提升比例。' },
-  { n: '02', t: '用智能体、知识库与自动化工作流搭建', d: '智能体负责执行任务，知识库提供业务规则与上下文，自动化工作流让流程按触发条件稳定运行。' },
-  { n: '03', t: 'Human in the Loop', d: 'AI 负责整理、生成和建议；人负责触发、判断与验收。涉及资金、客户承诺和系统写回时，必须保留人工门禁。' },
-  { n: '04', t: '先跑通一个，再复制一批', d: '用真实问题集验证一个高价值场景，确认业务结果和团队使用都成立，再扩展到更多岗位与流程。' },
+  { n: '01', t: '业务基线先于技术方案', d: '先记录耗时、质量、成本，再决定改哪里。没有基线，不承诺提升比例。' },
+  { n: '02', t: '用智能体、知识库与自动化工作流搭建', d: '智能体执行任务，知识库提供业务规则，自动化让流程稳定运行。' },
+  { n: '03', t: 'Human in the Loop', d: 'AI 整理和建议，人负责判断与验收；涉及资金和客户承诺，必须人工把关。' },
+  { n: '04', t: '先跑通一个，再复制一批', d: '先用真实问题验证一个场景，确认成立，再扩展到更多流程。' },
 ];
 
 const steps = [
@@ -25,13 +25,13 @@ const steps = [
     <div class="wrap">
       <p class="eyebrow">Method</p>
       <h1 style="margin: 14px 0 16px; font-size: clamp(30px,4.4vw,50px)">先找到真正的问题，<br />再决定 AI 做什么。</h1>
-      <p class="lede">同一句“我们想做 AI”，背后可能是场景没选对、流程跑不稳，或者团队接不住。诊断错层，投入就会花在错误的地方。</p>
+      <p class="lede">“想做 AI”背后，可能是场景没选对、流程跑不稳，或团队接不住。诊断错层，钱就花错地方。</p>
     </div>
   </section>
 
   <section class="section">
     <div class="wrap">
-      <SectionHead idx="01" title="三层诊断" sub="先判断问题属于哪一层，再匹配咨询、培训或 FDE 交付，不用同一套方案解决所有问题。" />
+      <SectionHead idx="01" title="三层诊断" sub="先判断问题在哪一层，再匹配诊断、培训或交付。" />
       <div class="grid-3">
         {site.layers.map((l) => (
           <article class="card">
@@ -47,7 +47,7 @@ const steps = [
 
   <section class="section">
     <div class="wrap">
-      <SectionHead idx="02" title="四条交付原则" sub="让系统能跑、结果能验、风险可控，也让团队在项目结束后仍然会用。" />
+      <SectionHead idx="02" title="四条交付原则" sub="让系统能跑、结果能验、团队接得住。" />
       <div class="grid-2">
         {principles.map((p) => (
           <article class="card">
@@ -62,7 +62,7 @@ const steps = [
 
   <section class="section">
     <div class="wrap">
-      <SectionHead idx="03" title="四步合作流程" sub="每一步都有明确产出；确认达到当前阶段目标，再决定是否进入下一步。" />
+      <SectionHead idx="03" title="四步合作流程" sub="每步有明确产出，达标再进下一步。" />
       <div class="process-flow" aria-label="诊断、方案、验证、验收四步合作流程">
         {steps.map((s) => (
           <article class="card process-step">
@@ -74,8 +74,7 @@ const steps = [
       </div>
       <article class="card acceptance-note">
         <h4>验收不只看演示效果</h4>
-        <p>业务侧：耗时、质量、成本或转化指标是否按约定口径变化。</p>
-        <p style="margin-top: 8px">团队侧：能否独立操作与处理异常。风险侧：权限、人工审核与失败降级是否有效。</p>
+        <p>业务侧看指标变化，团队侧看能否独立操作，风险侧看人工审核是否有效。</p>
       </article>
       <div class="btn-row">
         <a class="btn btn-solid" href={base + 'book/'}>预约需求初筛</a>

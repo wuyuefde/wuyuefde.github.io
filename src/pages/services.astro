@@ -9,11 +9,11 @@ const base = import.meta.env.BASE_URL;
 const faqs = [
   {
     q: '可以只采购诊断或培训吗？',
-    a: '可以。诊断不绑定后续培训或 FDE；培训也可以独立采购，但会前需要确认真实岗位任务，会后按约定评审现场产出。',
+    a: '可以。诊断不绑定后续服务；培训可独立采购，但按真实岗位任务验收产出。',
   },
   {
     q: '业务数据如何保护？',
-    a: '初筛不需要提交敏感材料。正式项目开始前，会确认保密、脱敏、访问权限和交付后的数据处理边界，再提供相应样例。',
+    a: '初筛不需要敏感材料。正式项目开始前，先确认保密与权限边界，再交接样例。',
   },
 ];
 ---
@@ -23,7 +23,7 @@ const faqs = [
     <div class="wrap">
       <p class="eyebrow">Services</p>
       <h1 style="margin: 14px 0 16px; font-size: clamp(30px,4.4vw,50px)">你买的不是工具，<br />是能验收、能交接的交付成果。</h1>
-      <p class="lede">诊断明确先做什么，培训让团队真正会用，FDE 把一条业务流程跑通。三种服务可独立采购，也可以逐步推进，每一步都有明确产出与验收。</p>
+      <p class="lede">诊断定方向，培训让团队会用，交付把流程跑通。三种服务可独立采购，每步都有明确验收。</p>
     </div>
   </section>
 
@@ -32,7 +32,7 @@ const faqs = [
       <div class="selector-intro">
         <p class="eyebrow">Quick Select</p>
         <h2 style="margin: 12px 0 8px">30 秒判断，先从哪项服务开始</h2>
-        <p>按你当前最真实的处境选择，不必一开始就采购完整项目。</p>
+        <p>按当前处境选，不必一次买完整项目。</p>
       </div>
       <div class="table-wrap selector-table">
         <table>
@@ -65,14 +65,14 @@ const faqs = [
       </div>
 
       <div class="callout pricing-note">
-        <strong style="color: var(--ink)">报价依据：</strong>根据访谈与流程范围、参训岗位、系统接入、数据权限和运维责任核算。初筛后书面确认交付范围、双方投入、里程碑和验收方式，不用模糊人天不断扩大项目。
+        <strong style="color: var(--ink)">报价依据：</strong>按访谈范围、参训岗位、系统接入和运维责任核算。初筛后书面确认范围、里程碑与验收，不靠人天加项。
       </div>
     </div>
   </section>
 
   <section class="section">
     <div class="wrap">
-      <SectionHead idx="04" title="采购前，先讲清两件事" sub="把数据安全和采购方式提前讲清，减少合作中的不确定性。" />
+      <SectionHead idx="04" title="采购前，先讲清两件事" sub="提前讲清，减少合作中的不确定。" />
       <div class="faq-list">
         {faqs.map((f) => (
           <details>
