@@ -11,6 +11,17 @@ const { title, description = site.lead } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 
+const navItems = [
+  { href: base, label: '首页' },
+  { href: base + 'method/', label: '交付方法' },
+  { href: base + 'services/', label: '服务产品' },
+  { href: base + 'demo/', label: '脱敏案例' },
+  { href: base + 'about/', label: '关于我们' },
+  { href: base + 'book/', label: '预约诊断' },
+];
+const current = Astro.url.pathname;
+const isActive = (href: string) => (href === base ? current === base : current.startsWith(href));
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
@@ -43,12 +54,9 @@ const jsonLd = {
       <div class="nav-inner">
         <a class="brand" href={base}><i>{site.initial}</i>{site.name}</a>
         <nav class="nav-links">
-          <a href={base}>首页</a>
-          <a href={base + 'method/'}>交付方法</a>
-          <a href={base + 'services/'}>服务产品</a>
-          <a href={base + 'demo/'}>脱敏案例</a>
-          <a href={base + 'about/'}>关于我们</a>
-          <a href={base + 'book/'}>预约诊断</a>
+          {navItems.map((item) => (
+            <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
+          ))}
         </nav>
       </div>
     </header>
@@ -65,7 +73,7 @@ const jsonLd = {
             <p style="margin-top: 4px">{site.role} · {site.city}</p>
           </div>
           <div>
-            <p>微信：{site.wechat}</p>
+            <p>微信：{site.wechat} <button class="copy-btn" data-copy={site.wechat} type="button">复制</button></p>
             <p>邮箱：<a href={`mailto:${site.email}`}>{site.email}</a></p>
           </div>
           <div>
@@ -78,6 +86,40 @@ const jsonLd = {
         </p>
       </div>
     </footer>
+    <button class="back-top" id="back-top" type="button" aria-label="返回顶部">↑</button>
+    <script is:inline>
+      (function () {
+        var btn = document.getElementById('back-top');
+        function onScroll() {
+          btn.classList.toggle('is-visible', window.scrollY > 600);
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+        btn.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        document.querySelectorAll('.copy-btn').forEach(function (el) {
+          el.addEventListener('click', function () {
+            var text = el.getAttribute('data-copy') || '';
+            function done() {
+              el.textContent = '已复制';
+              setTimeout(function () { el.textContent = '复制'; }, 1500);
+            }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(text).then(done, done);
+            } else {
+              var ta = document.createElement('textarea');
+              ta.value = text;
+              document.body.appendChild(ta);
+              ta.select();
+              try { document.execCommand('copy'); } catch (e) {}
+              document.body.removeChild(ta);
+              done();
+            }
+          });
+        });
+      })();
+    </script>
     <script is:inline>
       (function () {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
